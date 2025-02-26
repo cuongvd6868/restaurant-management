@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|d:\\documents\\github\\restaurant-management\\restaurant-management\\restaurant-management\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|solutionrelative:restaurant-management\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|d:\\documents\\github\\restaurant-management\\restaurant-management\\restaurant-management\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|solutionrelative:restaurant-management\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|d:\\documents\\github\\restaurant-management\\restaurant-management\\restaurant-management\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|solutionrelative:restaurant-management\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|d:\\documents\\github\\restaurant-management\\restaurant-management\\restaurant-management\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|solutionrelative:restaurant-management\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|d:\\documents\\github\\restaurant-management\\restaurant-management\\restaurant-management\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|solutionrelative:restaurant-management\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|d:\\documents\\github\\restaurant-management\\restaurant-management\\restaurant-management\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|solutionrelative:restaurant-management\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|d:\\documents\\github\\restaurant-management\\restaurant-management\\restaurant-management\\models\\restaurantcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C736DCDF-18EF-4758-A910-5466F5A1E777}|Restaurant-Management\\Restaurant-Management.csproj|solutionrelative:restaurant-management\\models\\restaurantcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Auth\\Login.cshtml",
+              "RelativeDocumentMoniker": "Restaurant-Management\\Views\\Auth\\Login.cshtml",
+              "ToolTip": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Auth\\Login.cshtml",
+              "RelativeToolTip": "Restaurant-Management\\Views\\Auth\\Login.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFwAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-26T02:00:50.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Restaurant-Management\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Restaurant-Management\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-26T02:00:35.88Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "Restaurant-Management\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "Restaurant-Management\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-26T01:53:31.407Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Restaurant-Management\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Restaurant-Management\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAAAAEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-26T01:48:42.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Restaurant-Management\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Restaurant-Management\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAuwEoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-26T01:48:25.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Restaurant-Management\\Views\\_ViewStart.cshtml",
+              "ToolTip": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "Restaurant-Management\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-26T01:48:16.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RestaurantContext.cs",
+              "DocumentMoniker": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Models\\RestaurantContext.cs",
+              "RelativeDocumentMoniker": "Restaurant-Management\\Models\\RestaurantContext.cs",
+              "ToolTip": "D:\\Documents\\GitHub\\restaurant-management\\Restaurant-Management\\Restaurant-Management\\Models\\RestaurantContext.cs",
+              "RelativeToolTip": "Restaurant-Management\\Models\\RestaurantContext.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAADwvyYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-26T01:47:13.939Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
