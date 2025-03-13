@@ -1,14 +1,11 @@
-﻿namespace RestaurantManagement.Models
+﻿using Microsoft.AspNetCore.Identity;
+using System.Security.Principal;
+
+namespace RestaurantManagement.Models
 {
 
-    public class Customer
+    public class Customer : IdentityUser<int>
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string Address { get; set; }
         public string Avatar { get; set; }
         public bool IsBlock { get; set; }
