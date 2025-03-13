@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestaurantManagement.Models { 
-public class FoodDbContext : DbContext
-{
+public class FoodDbContext : IdentityDbContext<Customer, Role, int>
+    {
     public FoodDbContext(DbContextOptions<FoodDbContext> options) : base(options)
       {
             //..
