@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\New folder (3)\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj": {}
+    "D:\\Project_Restaurant Manage\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj": {}
   },
   "projects": {
-    "D:\\New folder (3)\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj": {
+    "D:\\Project_Restaurant Manage\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\New folder (3)\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj",
+        "projectUniqueName": "D:\\Project_Restaurant Manage\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj",
         "projectName": "RestaurantManagement",
-        "projectPath": "D:\\New folder (3)\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj",
+        "projectPath": "D:\\Project_Restaurant Manage\\RestaurantManagement\\RestaurantManagement\\RestaurantManagement.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\New folder (3)\\RestaurantManagement\\RestaurantManagement\\obj\\",
+        "outputPath": "D:\\Project_Restaurant Manage\\RestaurantManagement\\RestaurantManagement\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

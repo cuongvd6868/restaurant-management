@@ -9,8 +9,6 @@
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsActive { get; set; }
-        public string ActiveID { get; set; }
         public string Address { get; set; }
         public string Avatar { get; set; }
         public bool IsBlock { get; set; }
