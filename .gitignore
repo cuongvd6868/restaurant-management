@@ -5,6 +5,7 @@ bin/
 obj/
 
 ## User-specific files
+.vs/
 .vscode/
 *.user
 *.suo

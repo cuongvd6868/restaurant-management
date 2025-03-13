@@ -51,29 +51,7 @@ public class FoodDbContext : DbContext
             .WithMany(c => c.FoodFavorites)
             .HasForeignKey(ff => ff.UserID);
 
-        // Cấu hình Customer
-        modelBuilder.Entity<Customer>()
-            .HasKey(c => c.UserID);
-
-        modelBuilder.Entity<Customer>()
-            .HasMany(c => c.FoodFavorites)
-            .WithOne(ff => ff.Customer)
-            .HasForeignKey(ff => ff.UserID);
-
-        modelBuilder.Entity<Customer>()
-            .HasMany(c => c.FoodOrders)
-            .WithOne(fo => fo.Customer)
-            .HasForeignKey(fo => fo.UserID);
-
-        modelBuilder.Entity<Customer>()
-            .HasMany(c => c.CartItems)
-            .WithOne(ci => ci.Customer)
-            .HasForeignKey(ci => ci.UserID);
-
-        modelBuilder.Entity<Customer>()
-            .HasMany(c => c.FoodFeedbacks)
-            .WithOne(ff => ff.Customer)
-            .HasForeignKey(ff => ff.UserID);
+        
 
         // Cấu hình Food
         modelBuilder.Entity<Food>()
@@ -184,9 +162,7 @@ public class FoodDbContext : DbContext
             .WithOne(f => f.FoodCategory)
             .HasForeignKey(f => f.FoodCategoryID);
 
-        // Cấu hình Role
-        modelBuilder.Entity<Role>()
-            .HasKey(r => r.RoleID);
+        
     }
 }
 }

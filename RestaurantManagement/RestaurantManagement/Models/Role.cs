@@ -1,8 +1,9 @@
-﻿namespace RestaurantManagement.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace RestaurantManagement.Models
 {
-    public class Role
+    public class Role : IdentityRole<int>
     {
-        public int RoleID { get; set; }
-        public string RoleName { get; set; }
+        public string Decriptions { get; set; }
     }
 }
