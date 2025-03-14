@@ -23,7 +23,7 @@ public class FoodDbContext : IdentityDbContext<Customer, Role, int>
     public DbSet<CartItem> CartItems { get; set; }
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<FoodCategory> FoodCategories { get; set; }
-    public DbSet<Role> Roles { get; set; }
+   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

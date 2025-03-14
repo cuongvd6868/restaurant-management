@@ -26,7 +26,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Register" id="registerLink">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login" id="loginLink">Login</a>
+                        </li>
+                        <li class="nav-item" style="display: none;" id="logoutLink">
+                            <a class="nav-link text-dark" href="#" onclick="logout()">Logout</a>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
