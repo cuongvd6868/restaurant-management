@@ -20,9 +20,9 @@ yarn-error.log
 # User secrets (bảo mật thông tin nhạy cảm)
 secrets.json
 
-# Cấu hình môi trường
-appsettings.json
-appsettings.*.json
+# Ignore appsettings files
+**/appsettings.json
+**/appsettings.*.json
 
 # IDE settings
 .idea/
