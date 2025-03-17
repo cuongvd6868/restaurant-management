@@ -11,7 +11,31 @@
     }
 });
 
-function logout() {
-    localStorage.removeItem("accessToken");
-    window.location.href = "/Auth/Login"; // Chuyển hướng về trang đăng nhập
+function deleteAllCookies() {
+    document.cookie.split(";").forEach(function (cookie) {
+        document.cookie = cookie
+            .replace(/^ +/, "") // Xóa khoảng trắng đầu dòng
+            .replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/"); // Đặt ngày hết hạn về quá khứ
+    });
 }
+
+function logout() {
+    fetch('/Auth/Logout', {
+        method: 'POST',
+        credentials: 'same-origin' // Giữ cookie cùng domain
+    })
+        .then(response => {
+            deleteAllCookies(); // Xóa cookie trình duyệt
+
+            localStorage.removeItem("accessToken"); // Xóa token trong localStorage
+            sessionStorage.clear(); // Xóa sessionStorage (nếu có)
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.href = "/Auth/Login"; // Chuyển hướng về trang đăng nhập
+            }
+        })
+        .catch(error => console.error('Logout error:', error));
+}
+

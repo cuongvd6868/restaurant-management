@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantManagement.DAOs.Impl;
+using RestaurantManagement.DAOs;
 using RestaurantManagement.Models;
 using RestaurantManagement.Repositories;
 using RestaurantManagement.Repositories.Impl;
@@ -76,6 +78,11 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+
+builder.Services.AddScoped(typeof(IGenericDAO<>), typeof(GenericDAO<>)); // Đăng ký Generic DAO
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); // Đăng ký Generic Repository
+builder.Services.AddScoped<IFoodDAO, FoodDAO>();
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 
 var app = builder.Build();
 
