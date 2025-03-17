@@ -18,7 +18,7 @@ namespace RestaurantManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> Get() 
         { 
-            return Ok(await _foodRepository.GetAllAsync());
+            return Ok(await _foodRepository.GetByIdAsync(2));
         }
     }
 }
