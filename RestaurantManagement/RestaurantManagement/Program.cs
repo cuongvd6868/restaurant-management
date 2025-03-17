@@ -82,13 +82,10 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped(typeof(IGenericDAO<>), typeof(GenericDAO<>)); // Đăng ký Generic DAO
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); // Đăng ký Generic Repository
 
-
 builder.Services.AddScoped<IFoodOrderDAO, FoodOrderDAO>();
 builder.Services.AddScoped<IFoodOderRepository, FoodOderRepository>();
 builder.Services.AddScoped<IFoodCategoryDAO, FoodCategoryDAO>();
 builder.Services.AddScoped<IFoodCategoryRepository, FoodCategoryRepository>();
-
-
 
 builder.Services.AddScoped<IFoodDAO, FoodDAO>();
 builder.Services.AddScoped<ICartItemDAO, CartItemDAO>();
