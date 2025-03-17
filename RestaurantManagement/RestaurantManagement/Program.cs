@@ -81,12 +81,26 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped(typeof(IGenericDAO<>), typeof(GenericDAO<>)); // Đăng ký Generic DAO
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); // Đăng ký Generic Repository
-builder.Services.AddScoped<IFoodDAO, FoodDAO>();
-builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+
 builder.Services.AddScoped<IFoodOrderDAO, FoodOrderDAO>();
 builder.Services.AddScoped<IFoodOderRepository, FoodOderRepository>();
 builder.Services.AddScoped<IFoodCategoryDAO, FoodCategoryDAO>();
 builder.Services.AddScoped<IFoodCategoryRepository, FoodCategoryRepository>();
+
+
+builder.Services.AddScoped<IFoodDAO, FoodDAO>();
+builder.Services.AddScoped<ICartItemDAO, CartItemDAO>();
+builder.Services.AddScoped<IFoodFavoriteDAO, FoodFavoriteDAO>();
+builder.Services.AddScoped<IFoodFeedbackDAO, FoodFeedbackDAO>();
+builder.Services.AddScoped<IFoodImageDAO, FoodImageDAO>();
+
+
+
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
+builder.Services.AddScoped<IFoodFavoriteRepository, FoodFavoriteRepository>();
+builder.Services.AddScoped<IFoodFeedbackRepository, FoodFeedbackRepository>();
+builder.Services.AddScoped<IFoodImageRepository, FoodImageRepository>();
 
 
 
