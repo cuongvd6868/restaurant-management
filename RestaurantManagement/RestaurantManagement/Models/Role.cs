@@ -4,6 +4,6 @@ namespace RestaurantManagement.Models
 {
     public class Role : IdentityRole<int>
     {
-        public string Decriptions { get; set; }
+        public string Description { get; set; }
     }
 }
