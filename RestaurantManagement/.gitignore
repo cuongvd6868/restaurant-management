@@ -1,35 +1,39 @@
-# Ignore Visual Studio files
+# Thư mục biên dịch
+bin/
+obj/
+
+# Thư mục tạm thời của Visual Studio
 .vs/
-.vscode/
-*.user
 *.suo
-*.vsp
-*.vspx
-*.vspscc
-*.vssscc
-*.ncrunch*
-*.ndj
+*.user
+*.userosscache
+*.sln.docstates
 
-# Ignore build output and temporary files
-RestaurantManagement/bin/
-RestaurantManagement/obj/
+# ASP.NET temp files
+*.logs/
 
-# Ignore logs
-logs/
-*.log
+# Node modules (nếu có sử dụng frontend với npm/yarn)
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# Ignore secrets and configurations
-appsettings.Development.json
+# User secrets (bảo mật thông tin nhạy cảm)
 secrets.json
 
-# Ignore database files
-*.mdf
-*.ldf
-*.sqlite
+# Cấu hình môi trường
+appsettings.json
+appsettings.*.json
 
-# Ignore Rider and JetBrains files
+# IDE settings
 .idea/
-*.sln.iml
+.vscode/
+*.code-workspace
 
-# Ignore ReSharper files
-*.DotSettings.user
+# Các tệp hệ thống
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Git
+.gitignore
