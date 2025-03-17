@@ -1,8 +1,8 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace RestaurantManagement.DAOs
+namespace RestaurantManagement.Repositories
 {
-    public interface IGenericDAO<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
@@ -12,4 +12,3 @@ namespace RestaurantManagement.DAOs
         Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> predicate);
     }
 }
-
