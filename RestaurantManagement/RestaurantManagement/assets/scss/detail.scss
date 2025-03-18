@@ -1,0 +1,87 @@
+.food-detail {
+    margin-top: 100px;
+}
+
+.food-detail .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.food-detail_img {
+    width: 570px;
+    height: 616px;
+    /* width: 50%; */
+}
+
+.food-detail_desc {
+    width: 47%;
+}
+
+.food-detail_desc .title {
+    font-family: "Libre Bodoni";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.food-detail .rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 9px;
+    margin-bottom: 20px;
+}
+
+.food-detail .rating p {
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.80);
+}
+
+.food-detail .price {
+    font-family: "Libre Bodoni";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.food-detail .sub-title {
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.80);
+    margin-bottom: 52px;
+}
+
+.food-detail .food-detail_action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* .food-detail .food-detail_action a {
+    display: block;
+} */
+
+.food-detail .btn {
+    padding: 5px 20px;
+    border-radius: 3px;
+}
+
+.food-detail .more-inf {
+    margin-top: 20px;
+}
+
+.food-detail .more-inf p {
+    margin-bottom: 8px;
+}
+
+.food-detail .more-inf strong {
+    font-family: "Plus Jakarta Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+}

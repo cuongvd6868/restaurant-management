@@ -1,0 +1,155 @@
+﻿.menu-hero {
+    margin-top: 100px;
+}
+
+.menu-hero .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-hero .food-img {
+    width: 370px;
+    height: 400px;
+    object-fit: cover;
+}
+
+.menu-hero .title {
+    font-family: "Libre Bodoni";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+.menu-hero .decor-rec {
+    margin: 0 auto;
+}
+
+.menu-hero .menu-list {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+}
+
+.menu-hero .menu-item {
+    width: 370px;
+}
+
+.add-to-cart_btn {
+    text-decoration: none;
+    color: beige;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+    border-bottom: 2px solid orange;
+}
+
+.add-to-cart_btn:hover {
+    color: orange;
+}
+
+.menu-hero .food-name {
+    font-family: "Libre Bodoni";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+
+.menu-hero .food-desc {
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+.menu-hero .food-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-hero .price {
+    font-family: "Libre Bodoni";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+
+
+hr {
+    border: none;
+    height: 1px; /* Độ dày của đường */
+    background-color: rgba(255, 255, 255, 0.1); /* Màu trắng mờ */
+    width: 100%; /* Chiều rộng full */
+}
+
+/* Phần banner chính */
+.fruit-banner {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+/* Hình ảnh nền */
+.fruit-banner__bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Lớp phủ tối */
+.fruit-banner__overlay {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 30px 70px;
+    text-align: center;
+    color: white;
+}
+
+/* Tiêu đề */
+.fruit-banner__title {
+    text-align: center;
+    /* H2 */
+    font-family: "Libre Bodoni";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 74px; /* 115.625% */
+}
+
+/* Phụ đề */
+.fruit-banner__subtitle {
+    text-align: center;
+    font-family: "Plus Jakarta Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+/* Nút bấm */
+.fruit-banner__btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.fruit-banner__btn:hover {
+    background-color: #d35400;
+}

@@ -10,30 +10,30 @@ using RestaurantManagement.Repositories.Impl;
 using RestaurantManagement.Services;
 using RestaurantManagement.Services.Impl;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
+// Cấu hình Identity
 builder.Services.AddIdentity<Customer, Role>()
     .AddEntityFrameworkStores<FoodDbContext>()
     .AddDefaultTokenProviders();
 
-// Cấu hình DbContext trước khi build app
+// Cấu hình DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FoodDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key is missing in configuration");
-
 var keyBytes = Encoding.UTF8.GetBytes(key);
 
-// Cấu hình Authentication với JWT Bearer
+// Cấu hình Authentication (JWT + Cookie) chỉ gọi 1 lần
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
 {
@@ -53,34 +53,31 @@ builder.Services.AddAuthentication(options =>
     {
         OnMessageReceived = context =>
         {
-            // Nếu token đã có trong Header thì không cần lấy từ Cookies
-            if (string.IsNullOrEmpty(context.Token))
+            if (string.IsNullOrEmpty(context.Token) && context.Request.Cookies.ContainsKey("accessToken"))
             {
-                if (context.Request.Cookies.ContainsKey("accessToken"))
-                {
-                    context.Token = context.Request.Cookies["accessToken"];
-                }
+                context.Token = context.Request.Cookies["accessToken"];
             }
             return Task.CompletedTask;
         }
     };
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/Auth/Login";
+    options.LogoutPath = "/Auth/Logout";
 });
 
-
-
-// Add services to the container.
+// Cấu hình Dependency Injection
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IPasswordHasher<Customer>, PasswordHasher<Customer>>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-
-builder.Services.AddScoped(typeof(IGenericDAO<>), typeof(GenericDAO<>)); // Đăng ký Generic DAO
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); // Đăng ký Generic Repository
+builder.Services.AddScoped(typeof(IGenericDAO<>), typeof(GenericDAO<>));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddScoped<IFoodDAO, FoodDAO>();
 builder.Services.AddScoped<ICartItemDAO, CartItemDAO>();
@@ -92,8 +89,6 @@ builder.Services.AddScoped<IFoodCategoryDAO, FoodCategoryDAO>();
 builder.Services.AddScoped<IFoodOrderDAO, FoodOrderDAO>();
 builder.Services.AddScoped<IFoodOrderDetailDAO, FoodOrderDetailDAO>();
 
-
-
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
 builder.Services.AddScoped<IFoodFavoriteRepository, FoodFavoriteRepository>();
@@ -104,10 +99,9 @@ builder.Services.AddScoped<IFoodCategoryRepository, FoodCategoryRepository>();
 builder.Services.AddScoped<IFoodOderRepository, FoodOderRepository>();
 builder.Services.AddScoped<IFoodOderDetailRepository, FoodOderDetailRepository>();
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -115,14 +109,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // Đảm bảo tệp tĩnh có thể được phục vụ
+app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

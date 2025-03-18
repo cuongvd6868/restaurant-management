@@ -2,33 +2,33 @@
 using RestaurantManagement.DTOs;
 using RestaurantManagement.Services;
 
-namespace RestaurantManagement.Controllers
+[ApiController]
+[Route("api/users")]
+public class UsersController : ControllerBase  
 {
-    public class UsersController : Controller
+    private readonly IUserService _userService;
+    private readonly IAuthService _authService;
+
+    public UsersController(IUserService userService, IAuthService authService)
     {
-        private readonly IUserService _userService;
-        private readonly IAuthService _authService;
+        _userService = userService;
+        _authService = authService;
+    }
 
-        public UsersController(IUserService userService,
-            IAuthService authService)
+    [HttpPost("register")]
+    public async Task<IActionResult> CreateUser([FromBody] UserCreationRequest request)
+    {
+        if (request == null)
         {
-            _userService = userService;
-            _authService = authService;
-        }
-        public IActionResult Register()
-        {
-            return View();
+            return BadRequest("Dữ liệu không hợp lệ!");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserCreationRequest request)
+        var result = await _userService.CreateUser(request);
+        if (result == null)
         {
-            var result = await _userService.CreateUser(request);
-            if (result == null)
-            {
-                return BadRequest("Email đã tồn tại!");
-            }
-            return Ok(result);
+            return BadRequest("Email đã tồn tại!");
         }
+
+        return Ok(result);
     }
 }
