@@ -31,4 +31,10 @@ public class UsersController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet("list")]
+    public async Task<IActionResult> GetUsers()
+    {
+        return Ok();
+    }
 }
