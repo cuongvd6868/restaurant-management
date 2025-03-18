@@ -43,10 +43,14 @@
         <div class="header-action">
             @if (User.Identity.IsAuthenticated)
             {
-                <span>Welcome, @User.Identity.Name!</span>
-                <form action="/Auth/Logout" method="post">
-                    <button type="submit">Logout</button>
-                </form>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <p>Welcome, @User.Claims.FirstOrDefault(c => c.Type == "FirstName")?.Value</p>
+                    <div>
+                        <form action="/Auth/Logout" method="post">
+                            <button type="submit" class="btn">Logout</button>
+                        </form>
+                    </div>
+                </div>
 
             }
             else
