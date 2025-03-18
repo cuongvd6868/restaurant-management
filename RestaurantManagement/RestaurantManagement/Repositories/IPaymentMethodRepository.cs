@@ -2,7 +2,7 @@
 
 namespace RestaurantManagement.Repositories
 {
-    public interface IFoodCategoryRepository : IGenericRepository<FoodCategory>
+    public interface IPaymentMethodRepository : IGenericRepository<PaymentMethod>
     {
     }
 }
