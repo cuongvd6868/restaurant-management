@@ -8,5 +8,7 @@ namespace RestaurantManagement.Models
         public string FoodCategoryName { get; set; }
         [JsonIgnore]
         public ICollection<Food> Foods { get; set; }
+       
+
     }
 }

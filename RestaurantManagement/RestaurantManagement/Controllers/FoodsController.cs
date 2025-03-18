@@ -28,5 +28,23 @@ namespace RestaurantManagement.Controllers
         {
             return await foodService.GetFoodCategories();
         }
+
+        public async Task<Food> CreateFoodAsync(Food food)
+        {
+            return await foodService.CreateFoodAsync(food);
+        }
+        public async Task<Food> UpdateFoodAsync(Food food)
+        {
+            return await foodService.UpdateFoodAsync(food);
+        }
+
+        public async Task<bool> DeleteFoodAsync(int foodId)
+        {
+            return await foodService.DeleteFoodAsync(foodId);
+        }
+        public async Task<Food> GetOne(int foodId)
+        {
+            return await foodService.GetOne(foodId);
+        }
     }
 }
