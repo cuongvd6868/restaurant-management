@@ -87,6 +87,10 @@ builder.Services.AddScoped<ICartItemDAO, CartItemDAO>();
 builder.Services.AddScoped<IFoodFavoriteDAO, FoodFavoriteDAO>();
 builder.Services.AddScoped<IFoodFeedbackDAO, FoodFeedbackDAO>();
 builder.Services.AddScoped<IFoodImageDAO, FoodImageDAO>();
+builder.Services.AddScoped<IPaymentMethodDAO, PaymentMethodDAO>();
+builder.Services.AddScoped<IFoodCategoryDAO, FoodCategoryDAO>();
+builder.Services.AddScoped<IFoodOrderDAO, FoodOrderDAO>();
+builder.Services.AddScoped<IFoodOrderDetailDAO, FoodOrderDetailDAO>();
 
 
 
@@ -95,6 +99,10 @@ builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
 builder.Services.AddScoped<IFoodFavoriteRepository, FoodFavoriteRepository>();
 builder.Services.AddScoped<IFoodFeedbackRepository, FoodFeedbackRepository>();
 builder.Services.AddScoped<IFoodImageRepository, FoodImageRepository>();
+builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+builder.Services.AddScoped<IFoodCategoryRepository, FoodCategoryRepository>();
+builder.Services.AddScoped<IFoodOderRepository, FoodOderRepository>();
+builder.Services.AddScoped<IFoodOderDetailRepository, FoodOderDetailRepository>();
 
 
 var app = builder.Build();

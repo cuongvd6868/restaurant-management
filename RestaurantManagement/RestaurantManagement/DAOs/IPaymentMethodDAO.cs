@@ -2,7 +2,7 @@
 
 namespace RestaurantManagement.DAOs
 {
-    public interface IPaymentMethod : IGenericDAO<PaymentMethod>
+    public interface IPaymentMethodDAO : IGenericDAO<PaymentMethod>
     {
     }
 }
