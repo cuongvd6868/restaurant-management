@@ -1,0 +1,37 @@
+# Thư mục biên dịch
+bin/
+obj/
+
+# Thư mục tạm thời của Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ASP.NET temp files
+*.logs/
+
+# Node modules (nếu có sử dụng frontend với npm/yarn)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# User secrets (bảo mật thông tin nhạy cảm)
+secrets.json
+
+# Ignore appsettings files
+**/appsettings.json
+**/appsettings.*.json
+
+# IDE settings
+.idea/
+.vscode/
+*.code-workspace
+
+# Các tệp hệ thống
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
