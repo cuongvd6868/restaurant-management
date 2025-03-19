@@ -27,6 +27,23 @@ namespace RestaurantManagement.Services.Impl
         {
             return await foodDAO.GetFooodsAsync(cateId, search, pageNumber, pageSize);
         }
+        public async Task<Food> CreateFoodAsync(Food food)
+        {
+            return await foodDAO.AddAsync(food);
+        }
+        public async Task<Food> UpdateFoodAsync(Food food)
+        {
+           return await foodDAO.UpdateAsync(food);
+        }
+
+        public async Task<bool> DeleteFoodAsync(int foodId)
+        {
+            return await foodDAO.DeleteFoodAsync(foodId);
+        }
+        public async Task<Food> GetOne(int foodId)
+        {
+            return await foodDAO.GetByIdAsync(foodId);
+        }
 
         public async Task<PagedListAPI<FoodViewModel>> GetFoodsAPI(int? cateId, int pageNumber, int pageSize)
         {
