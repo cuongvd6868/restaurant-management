@@ -14,6 +14,13 @@ namespace RestaurantManagement.DAOs.Impl
             _context = context;
         }
 
+        public async override Task<Food> GetByIdAsync(int id)
+        {
+            return await _context.Foods.Include(f => f.FoodCategory)
+                .Include(f => f.FoodImages)
+                .FirstOrDefaultAsync(f => f.FoodID == id);
+        }
+
         public async Task<List<FoodCategory>> GetFoodCategories()
         {
             return await _context.FoodCategories.ToListAsync();

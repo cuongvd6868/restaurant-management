@@ -7,12 +7,12 @@ using RestaurantManagement.Services;
 public class UsersController : ControllerBase  
 {
     private readonly IUserService _userService;
-    private readonly IAuthService _authService;
+    
 
-    public UsersController(IUserService userService, IAuthService authService)
+    public UsersController(IUserService userService)
     {
         _userService = userService;
-        _authService = authService;
+        
     }
 
     [HttpPost("register")]
@@ -35,6 +35,18 @@ public class UsersController : ControllerBase
     [HttpGet("list")]
     public async Task<IActionResult> GetUsers()
     {
-        return Ok();
+        return Ok(await _userService.GetAll());
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUsers(int id)
+    {
+        return Ok(await _userService.GetById(id));
+    }
+
+    [HttpPut("ban/{id}")]
+    public async Task<IActionResult> BanUser(int id)
+    {
+        return Ok(await _userService.BanById(id));
     }
 }

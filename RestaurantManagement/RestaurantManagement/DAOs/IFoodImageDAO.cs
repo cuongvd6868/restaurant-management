@@ -1,6 +1,9 @@
-﻿namespace RestaurantManagement.DAOs
+﻿using RestaurantManagement.Models;
+
+namespace RestaurantManagement.DAOs
 {
-    public interface IFoodImageDAO
+    public interface IFoodImageDAO : IGenericDAO<FoodImage>
     {
+        Task<FoodImage?> GetByFoodIdAsync(int foodId);
     }
 }
