@@ -2,19 +2,31 @@
 using RestaurantManagement.DTOs;
 using RestaurantManagement.Models;
 using RestaurantManagement.Repositories;
+using RestaurantManagement.ViewModel;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace RestaurantManagement.Services.Impl
 {
     public class FoodService : IFoodService
     {
+        private readonly HttpClient _httpClient;
         private IFoodDAO foodDAO;
-        private readonly IFoodRepository foodRepository;
 
-        public FoodService(IFoodDAO foodDAO,
-            IFoodRepository foodRepository)
+        public FoodService(IFoodDAO foodDAO, HttpClient httpClient)
         {
             this.foodDAO = foodDAO;
-            this.foodRepository = foodRepository;
+            _httpClient = httpClient;
+        }
+
+        public async Task<List<FoodCategory>> GetFoodCategories()
+        {
+            return await foodDAO.GetFoodCategories();
+        }
+
+        public async Task<PagedList> GetFooodsAsync(int? cateId, string? search, int pageNumber, int pageSize)
+        {
+            return await foodDAO.GetFooodsAsync(cateId, search, pageNumber, pageSize);
         }
 
         public async Task<Food> CreateFood(Food food)
@@ -29,24 +41,22 @@ namespace RestaurantManagement.Services.Impl
 
         public async Task<Food> GetFoodById(int id)
         {
-            
+
             return await foodDAO.GetByIdAsync(id);
-            
-        }
 
-        public async Task<List<FoodCategory>> GetFoodCategories()
-        {
-            return await foodDAO.GetFoodCategories();
         }
-
-        public async Task<PagedList> GetFooodsAsync(int? cateId, string? search, int pageNumber, int pageSize)
-        {
-            return await foodDAO.GetFooodsAsync(cateId, search, pageNumber, pageSize);
-        }
-
         public async Task<Food> UpdateFood(Food food)
         {
             return await foodDAO.UpdateAsync(food);
         }
+        public async Task<PagedListAPI<FoodViewModel>> GetFoodsAPI(int? cateId, int pageNumber, int pageSize)
+        {
+            var response = await _httpClient.GetAsync($"https://localhost:7081/api/Foods/GetFooodsAsync?cateId={cateId}&pageNumber={pageNumber}&pageSize={pageSize}");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<PagedListAPI<FoodViewModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
     }
 }

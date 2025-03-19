@@ -1,0 +1,24 @@
+﻿@using RestaurantManagement.ViewModel;
+@model RestaurantManagement.ViewModel.FoodTypeAllViewModel
+
+<div class="container">
+    <div class="food-action" style="margin-top: 50px;">
+        <a href="" class="add-to-cart_btn" style="font-size: 2.3rem;">See All Our Menu</a>
+    </div>
+</div>
+@await Html.PartialAsync("FoodType/Breakfast", Model.BreakfastFoods)
+
+<div class="fruit-banner">
+    <img src="~/img/Food/bg-food-img.png" alt="Fruit Background" class="fruit-banner__bg-image">
+    <div class="fruit-banner__overlay">
+        <h1 class="fruit-banner__title">Food Is Not Just <br> Eating Energy</h1>
+        <p class="fruit-banner__subtitle">It's an experience.</p>
+        <button class="fruit-banner__btn">Order Now</button>
+    </div>
+</div>
+
+@await Html.PartialAsync("FoodType/Lunch", Model.LunchFoods)
+@await Html.PartialAsync("FoodType/Dinner", Model.DinnerFoods)
+@await Html.PartialAsync("FoodType/Dessert", Model.DessertFoods)
+
+<div style="padding-bottom: 200px;"></div>

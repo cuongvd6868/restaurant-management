@@ -19,6 +19,10 @@ builder.Services.AddIdentity<Customer, Role>()
     .AddEntityFrameworkStores<FoodDbContext>()
     .AddDefaultTokenProviders();
 
+// Cấu hình HTTP Client
+builder.Services.AddHttpClient<FoodService>();
+builder.Services.AddControllersWithViews();
+
 // Cấu hình DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FoodDbContext>(options =>

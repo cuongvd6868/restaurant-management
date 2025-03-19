@@ -1,0 +1,44 @@
+﻿@using RestaurantManagement.ViewModel;
+@using RestaurantManagement.DTOs;
+
+@model PagedListAPI<FoodViewModel>
+
+<!-- Breakfast -->
+<div class="menu-hero">
+    <div class="container">
+        <h2 class="title">Breakfast</h2>
+        <img src="~/img/Icon/decor-rec.svg" alt="" class="decor-rec">
+
+        @if (Model != null && Model.Items != null && Model.Items.Any())
+        {
+            <div class="menu-list">
+                @foreach (var food in Model.Items)
+                {
+                    <div class="menu-item">
+                        <div class="menu-hero_thumb">
+                            <div class="heart-container">
+                                <form action="">
+                                    <button type="submit">
+                                        <img src="~/img/Icon/heart.svg" alt="Like">
+                                    </button>
+                                </form>
+                            </div>
+                            <img src="@food.FoodLink" alt="@food.FoodName" class="food-img">
+                        </div>
+                        <h3 class="food-name">@food.FoodName</h3>
+                        <p class="food-desc">@food.Description</p>
+                        <hr>
+                        <div class="food-action">
+                            <a href="" class="add-to-cart_btn">Add To Cart</a>
+                            <p class="price">@food.Price.ToString("C")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="no-food-message">Không có món ăn nào cho bữa sáng.</p>
+        }
+    </div>
+</div>
