@@ -26,8 +26,9 @@ namespace RestaurantManagement.DAOs.Impl
             {
                 query = query.Where(f => f.FoodCategoryID == cateId);
             }
-            if (!string.IsNullOrEmpty(search)) {
-                query = query.Where(f=>f.FoodName.Contains(search));
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(f => f.FoodName.Contains(search));
             }
             var count = await query.CountAsync();
             var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();

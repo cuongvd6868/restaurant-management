@@ -53,10 +53,6 @@
                     <input type="password" id="confirm-password" placeholder="Confirm password" />
                     <small class="text-danger d-none" id="error-confirm-password">Passwords do not match.</small>
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="terms">
-                    <label class="form-check-label terms-text" for="terms">I agree to terms & conditions</label>
-                </div>
                 <input type="submit" class="btn" value="Sign up" />
             </form>
         </div>
@@ -87,42 +83,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-
-@* <script> *@
-@*     $(document).ready(function() { *@
-@*         $("#loginForm").submit(async function(e) { *@
-@*             e.preventDefault(); *@
-
-@*             const email = $("#login-email").val(); *@
-@*             const password = $("#login-password").val(); *@
-@*             const errorMessage = $("#errorMessage"); *@
-
-@*             try { *@
-@*                 const response = await fetch("/auth/LoginHandle", { *@
-@*                     method: "POST", *@
-@*                     headers: { "Content-Type": "application/json" }, *@
-@*                     body: JSON.stringify({ Email: email, Password: password }) *@
-@*                 }); *@
-
-@*                 if (!response.ok) throw new Error("Invalid email or password"); *@
-
-@*                 const data = await response.json(); *@
-@*                 localStorage.setItem("accessToken", data.accessToken); *@
-
-@*                 if (data.role === "Customer") { *@
-@*                     window.location.href = "/"; *@
-@*                 } else if (data.role === "Admin") { *@
-@*                     window.location.href = "/restaurants"; *@
-@*                 } *@
-@*             } catch (error) { *@
-@*                 errorMessage.text(error.message).show(); *@
-@*             } *@
-@*         }); *@
-
-@*         $("#sign-up-btn").click(() => $(".new-container").addClass("sign-up-mode")); *@
-@*         $("#sign-in-btn").click(() => $(".new-container").removeClass("sign-up-mode")); *@
-@*     }); *@
-@* </script> *@
 
 <script>
     $(document).ready(function () {

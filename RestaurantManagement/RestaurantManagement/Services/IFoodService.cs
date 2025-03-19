@@ -1,5 +1,6 @@
 ﻿using RestaurantManagement.DTOs;
 using RestaurantManagement.Models;
+using RestaurantManagement.ViewModel;
 
 namespace RestaurantManagement.Services
 {
@@ -12,5 +13,6 @@ namespace RestaurantManagement.Services
 
         public Task<bool> DeleteFoodAsync(int foodId);
         public Task<Food> GetOne(int foodId);
+        Task<PagedListAPI<FoodViewModel>> GetFoodsAPI(int? cateId, int pageNumber, int pageSize);
     }
 }

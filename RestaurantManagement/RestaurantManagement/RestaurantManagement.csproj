@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Menu\**" />
+    <Content Remove="Views\Menu\**" />
+    <EmbeddedResource Remove="Views\Menu\**" />
+    <None Remove="Views\Menu\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Home\_Footer.cshtml" />
   </ItemGroup>
 
@@ -16,6 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.10.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.2" />
@@ -44,10 +52,8 @@
     <PackageReference Include="MimeKit" Version="4.10.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Menu\" />
+    <PackageReference Include="System.Net.Http.Json" Version="9.0.3" />
+    <PackageReference Include="X.PagedList" Version="10.5.7" />
   </ItemGroup>
 
 </Project>
