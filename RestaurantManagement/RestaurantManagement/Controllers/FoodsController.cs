@@ -31,32 +31,29 @@ namespace RestaurantManagement.Controllers
         {
             return await _foodService.GetFoodCategories();
         }
-
-        [HttpPost]
-        public Task<Food> CreateFood(Food food)
+        [Route("CreateFoodAsync")]
+        public async Task<Food> CreateFoodAsync(Food food)
         {
-            return _foodService.CreateFood(food);
+            return await _foodService.CreateFoodAsync(food);
         }
-
-        [HttpGet("{id}")]
-        public Task<Food> GetFoodById(int id)
+        [Route("UpdateFoodAsync")]
+        public async Task<Food> UpdateFoodAsync(Food food)
         {
-            return _foodService.GetFoodById(id);
+            return await _foodService.UpdateFoodAsync(food);
         }
-
-        [HttpPut]
-        public Task<Food> UpdateFood(Food food)
+        [Route("DeleteFoodAsync")]
+        public async Task<bool> DeleteFoodAsync(int foodId)
         {
-            return _foodService.UpdateFood(food);
+            return await _foodService.DeleteFoodAsync(foodId);
         }
-
-        [HttpDelete]
-        public Task<bool> DeleteFood(int id)
+        [Route("GetOne")]
+        public async Task<Food> GetOne(int foodId)
         {
-            return _foodService.DeleteFood(id);
+            return await _foodService.GetOne(foodId);
         }
 
         // all food types
+        [Route("FoodTypeAll")]
         public async Task<IActionResult> FoodTypeAll()
         {
             var model = new FoodTypeAllViewModel
@@ -94,6 +91,7 @@ namespace RestaurantManagement.Controllers
             var foods = await _foodService.GetFoodsAPI(cateId, pageNumber, pageSize);
             return View("Dessert", foods);
         }
+
 
 
     }
