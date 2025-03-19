@@ -35,25 +35,25 @@ namespace RestaurantManagement.Controllers
         [HttpPost]
         public Task<Food> CreateFood(Food food)
         {
-            return foodService.CreateFood(food);
+            return _foodService.CreateFood(food);
         }
 
         [HttpGet("{id}")]
         public Task<Food> GetFoodById(int id)
         {
-            return foodService.GetFoodById(id);
+            return _foodService.GetFoodById(id);
         }
 
         [HttpPut]
         public Task<Food> UpdateFood(Food food)
         {
-            return foodService.UpdateFood(food);
+            return _foodService.UpdateFood(food);
         }
 
         [HttpDelete]
         public Task<bool> DeleteFood(int id)
         {
-            return foodService.DeleteFood(id);
+            return _foodService.DeleteFood(id);
         }
 
         // all food types
