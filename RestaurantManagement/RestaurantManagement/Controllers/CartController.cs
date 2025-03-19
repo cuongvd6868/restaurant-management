@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace RestaurantManagement.Controllers
 {
-    [Authorize] // Yêu cầu đăng nhập
+    [Authorize] 
     [Route("api/[controller]")]
     [ApiController]
     public class CartController : ControllerBase
@@ -31,11 +31,20 @@ namespace RestaurantManagement.Controllers
             return Ok(cartItems);
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Route("AddToCart")]
         public async Task<IActionResult> AddToCart(int foodId, int quantity, decimal price)
         {
             var userId = GetUserId();
             if (userId == null) return Unauthorized("User is not logged in");
+            var checkExist = (await _cartItemRepository.FindByConditionAsync( x=> x.FoodID ==foodId && x.UserID == userId)).FirstOrDefault();
+            if (checkExist != null)
+            {
+                checkExist.Quantity += quantity;
+                await _cartItemRepository.UpdateAsync(checkExist);
+                return Ok(checkExist);
+            }
+
 
             var cartItem = new CartItem
             {
@@ -49,7 +58,8 @@ namespace RestaurantManagement.Controllers
             return Ok(cartItem);
         }
 
-        [HttpPut("{cartItemId}")]
+        [HttpGet]
+        [Route("UpdateCartItem/{cartItemId}")]
         public async Task<IActionResult> UpdateCartItem(int cartItemId, int quantity)
         {
             var userId = GetUserId();
@@ -64,7 +74,8 @@ namespace RestaurantManagement.Controllers
             return Ok(cartItem);
         }
 
-        [HttpDelete("{cartItemId}")]
+        [HttpGet]
+        [Route("RemoveFromCart/{cartItemId}")]
         public async Task<IActionResult> RemoveFromCart(int cartItemId)
         {
             var userId = GetUserId();

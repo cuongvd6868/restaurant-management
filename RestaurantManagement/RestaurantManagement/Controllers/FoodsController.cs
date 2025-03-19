@@ -46,6 +46,7 @@ namespace RestaurantManagement.Controllers
         {
             return await _foodService.DeleteFoodAsync(foodId);
         }
+
         public async Task<Food> GetOne(int foodId)
         {
             return await _foodService.GetOne(foodId);

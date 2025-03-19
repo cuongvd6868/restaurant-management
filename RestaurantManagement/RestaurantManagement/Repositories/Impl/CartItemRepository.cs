@@ -14,7 +14,7 @@ namespace RestaurantManagement.Repositories.Impl
         }
         public async Task<List<CartItem>> GetListCartItemsByCurrentUser(int userId)
         {
-            return await _context.CartItems.Where(x=> x.UserID == userId).ToListAsync();   
+            return await _context.CartItems.Include(x=>x.Food).Where(x=> x.UserID == userId).ToListAsync();   
         }
 
     }

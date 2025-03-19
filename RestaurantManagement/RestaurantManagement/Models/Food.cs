@@ -1,4 +1,6 @@
-﻿namespace RestaurantManagement.Models
+﻿using System.Text.Json.Serialization;
+
+namespace RestaurantManagement.Models
 {
 
     public class Food
@@ -13,7 +15,7 @@
         public ICollection<FoodFavorite> FoodFavorites { get; set; }    
         public ICollection<FoodOrderDetail> FoodOrderDetails { get; set; }
         public ICollection<FoodFeedback> FoodFeedbacks { get; set; }
-
+        [JsonIgnore]
         public ICollection<CartItem> CartItems { get; set; }
         public int FoodCategoryID { get; set; }
         public FoodCategory FoodCategory { get; set; }
