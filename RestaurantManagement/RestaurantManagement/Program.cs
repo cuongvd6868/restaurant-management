@@ -27,6 +27,7 @@ builder.Services.AddDbContext<FoodDbContext>(options =>
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key is missing in configuration");
 var keyBytes = Encoding.UTF8.GetBytes(key);
+builder.Services.AddSwaggerGen();
 
 // Cấu hình Authentication (JWT + Cookie) chỉ gọi 1 lần
 builder.Services.AddAuthentication(options =>
@@ -107,6 +108,11 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+}
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

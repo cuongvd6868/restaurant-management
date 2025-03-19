@@ -21,6 +21,7 @@ namespace RestaurantManagement.Controllers
         }
 
         [HttpGet]
+        [Route("GetCart")]
         public async Task<IActionResult> GetCart()
         {
             var userId = GetUserId();
