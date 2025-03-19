@@ -8,6 +8,7 @@
         public string Description { get; set; }
         public decimal ListPrice { get; set; }
         public decimal Price { get; set; }
+        public string? FoodLink { get; set; }
         public ICollection<FoodImage> FoodImages { get; set; }
         public ICollection<FoodFavorite> FoodFavorites { get; set; }    
         public ICollection<FoodOrderDetail> FoodOrderDetails { get; set; }
