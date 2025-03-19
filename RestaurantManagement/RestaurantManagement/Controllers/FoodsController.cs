@@ -31,28 +31,29 @@ namespace RestaurantManagement.Controllers
         {
             return await _foodService.GetFoodCategories();
         }
-
-
+        [Route("CreateFoodAsync")]
         public async Task<Food> CreateFoodAsync(Food food)
         {
             return await _foodService.CreateFoodAsync(food);
         }
+        [Route("UpdateFoodAsync")]
         public async Task<Food> UpdateFoodAsync(Food food)
         {
             return await _foodService.UpdateFoodAsync(food);
         }
-
+        [Route("DeleteFoodAsync")]
         public async Task<bool> DeleteFoodAsync(int foodId)
         {
             return await _foodService.DeleteFoodAsync(foodId);
         }
-
+        [Route("GetOne")]
         public async Task<Food> GetOne(int foodId)
         {
             return await _foodService.GetOne(foodId);
         }
 
         // all food types
+        [Route("FoodTypeAll")]
         public async Task<IActionResult> FoodTypeAll()
         {
             var model = new FoodTypeAllViewModel
