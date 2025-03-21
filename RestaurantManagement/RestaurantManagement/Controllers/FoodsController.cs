@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.DAOs;
 using RestaurantManagement.DAOs.Impl;
 using RestaurantManagement.DTOs;
@@ -14,10 +15,25 @@ namespace RestaurantManagement.Controllers
     public class FoodsController : Controller
     {
         private IFoodService _foodService;
+        private FoodDbContext _context;
 
-        public FoodsController(IFoodService foodService)
+        public FoodsController(IFoodService foodService, FoodDbContext context)
         {
             this._foodService = foodService;
+            _context = context;
+        }
+
+        [HttpGet("FoodDetail/{foodId}")]
+        public async Task<IActionResult> FoodDetail(int foodId)
+        {
+            var food = await _context.Foods.FirstOrDefaultAsync(f => f.FoodID == foodId);
+
+            if (food == null)
+            {
+                return NotFound("Food not found");
+            }
+
+            return View("~/Views/Foods/FoodDetail.cshtml", food);
         }
 
         [Route("GetFooodsAsync")]
