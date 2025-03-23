@@ -11,6 +11,7 @@ using RestaurantManagement.Services;
 using RestaurantManagement.Services.Impl;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using VNPAY.NET;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IVnpay, Vnpay>(); // Thay 'VnpayImplementation' bằng class thực tế
 
 builder.Services.AddScoped(typeof(IGenericDAO<>), typeof(GenericDAO<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
