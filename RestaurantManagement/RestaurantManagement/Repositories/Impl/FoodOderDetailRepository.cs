@@ -3,13 +3,21 @@ using RestaurantManagement.Models;
 
 namespace RestaurantManagement.Repositories.Impl
 {
-    
-        public class FoodOderDetailRepository : GenericRepository<FoodOrderDetail>, IFoodOderDetailRepository
+
+    public class FoodOderDetailRepository : GenericRepository<FoodOrderDetail>, IFoodOderDetailRepository
+    {
+        private readonly FoodDbContext _context;
+
+        public FoodOderDetailRepository(IGenericDAO<FoodOrderDetail> FoodOrderDetail, FoodDbContext context) : base(FoodOrderDetail)
         {
-            public FoodOderDetailRepository(IGenericDAO<FoodOrderDetail> FoodOrderDetail) : base(FoodOrderDetail)
-            {
-            }
+            _context = context;
         }
 
+        public async Task AddList(List<FoodOrderDetail> orderDetails)
+        {
+            await _context.AddRangeAsync(orderDetails);
+        }
     }
+
+}
 
