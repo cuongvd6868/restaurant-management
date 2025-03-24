@@ -1,4 +1,6 @@
-﻿namespace RestaurantManagement.Models
+﻿using System.Text.Json.Serialization;
+
+namespace RestaurantManagement.Models
 {
     public class PaymentMethod
     {
@@ -7,6 +9,7 @@
         public decimal PaymentCost { get; set; }
 
         // Quan hệ 1 - nhiều với FoodOrder
+        [JsonIgnore]
         public ICollection<FoodOrder> FoodOrders { get; set; }
     }
 }

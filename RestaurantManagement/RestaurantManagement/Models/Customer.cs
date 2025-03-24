@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Principal;
+using System.Text.Json.Serialization;
 
 namespace RestaurantManagement.Models
 {
@@ -12,6 +13,7 @@ namespace RestaurantManagement.Models
         public string? Avatar { get; set; }
         public bool? IsBlock { get; set; }
         public ICollection<FoodFavorite> FoodFavorites { get; set; }
+        [JsonIgnore]
         public ICollection<FoodOrder> FoodOrders { get; set; }
         public ICollection<CartItem> CartItems { get; set; }
         public ICollection<FoodFeedback> FoodFeedbacks { get; set; }
