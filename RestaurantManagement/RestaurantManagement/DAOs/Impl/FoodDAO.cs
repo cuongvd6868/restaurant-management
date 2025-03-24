@@ -28,7 +28,11 @@ namespace RestaurantManagement.DAOs.Impl
 
         public async Task<PagedList> GetFooodsAsync(int? cateId, string? search, int pageNumber, int pageSize)
         {
-            var query = _context.Foods.Include(f => f.FoodCategory).AsQueryable();
+            var query = _context.Foods
+                .Include(f => f.FoodCategory)
+                .Include(f => f.FoodImages)
+                .OrderByDescending(f => f.FoodID)
+                .AsQueryable();
             if (cateId.HasValue)
             {
                 query = query.Where(f => f.FoodCategoryID == cateId);

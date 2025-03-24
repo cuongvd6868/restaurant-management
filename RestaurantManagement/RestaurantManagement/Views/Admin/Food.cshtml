@@ -1,0 +1,199 @@
+﻿@{
+    Layout = "AdminLayout";
+}
+
+@model RestaurantManagement.DTOs.PagedList
+
+<style>
+    .modal {
+        z-index: 1055 !important;
+    }
+
+    .modal-backdrop {
+        z-index: -1050 !important;
+    }
+
+
+</style>
+
+<!--   === Description Starts ===   -->
+<div class="container mt-4">
+    <!-- Nút mở Modal -->
+    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createFoodModal">
+        <i class="bi bi-plus-circle"></i> Create Food
+    </button>
+    <!-- Form tìm kiếm -->
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Tìm kiếm món ăn..." value="@Context.Request.Query["search"]">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Tìm</button>
+        </div>
+    </form>
+
+    <!-- Bảng danh sách món ăn -->
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Hình ảnh</th>
+                <th>Tên món ăn</th>
+                <th>Mô tả</th>
+                <th>Giá</th>
+                <th>Loại món ăn</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Items.Any())
+            {
+                @foreach (var food in Model.Items)
+                {
+                    <tr>
+                        <td>@food.FoodID</td>
+                        <td><img src="https://localhost:7081/api/foodimage/get/@food.FoodID" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;" alt="@food.FoodName"></td>
+                        <td>@food.FoodName</td>
+                        <td>@food.Description</td>
+                        <td class="text-danger fw-bold">@food.Price $</td>
+                        <td>@food.FoodCategory.FoodCategoryName</td>
+                        <td>
+                            <a href="#" class="text-primary" onclick="openEditModal('@food.FoodID', '@food.FoodName', '@food.Description', '@food.Price', '@food.FoodCategory.FoodCategoryID', 'https://localhost:7081/api/foodimage/get/@food.FoodID')" data-bs-toggle="modal" data-bs-target="#editFoodModal">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="#" class="text-danger" onclick="confirmDelete(@food.FoodID)">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center">Không có món ăn nào!</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Phân trang -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            @if (Model.PageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?pageNumber=@(Model.PageNumber - 1)&pageSize=@Model.PageSize">Trước</a>
+                </li>
+            }
+
+            <li class="page-item active">
+                <span class="page-link">Trang @Model.PageNumber</span>
+            </li>
+
+            @if (Model.PageNumber * Model.PageSize < Model.TotalCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?pageNumber=@(Model.PageNumber + 1)&pageSize=@Model.PageSize">Tiếp</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+<!-- Modal tạo món ăn -->
+<div class="modal fade" id="createFoodModal" aria-labelledby="createFoodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createFoodModalLabel">Thêm món ăn</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createFoodForm">
+                    <div class="mb-3">
+                        <label class="form-label">Tên món ăn</label>
+                        <input type="text" id="foodName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mô tả</label>
+                        <textarea id="foodDescription" class="form-control" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giá ($)</label>
+                        <input type="number" id="foodPrice" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Loại món ăn</label>
+                        <select id="foodCategory" class="form-select">
+                            <option value="1">Morning</option>
+                            <option value="2">Lunch</option>
+                            <option value="3">Afternoon</option>
+                            <option value="4">Evening</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hình ảnh món ăn</label>
+                        <input type="file" id="foodImage" class="form-control" accept="image/*" onchange="previewImage(event)">
+                        <div class="mt-2 text-center">
+                            <img id="preview" src="#" class="img-thumbnail" style="max-width: 150px; display: none;">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <button type="button" class="btn btn-primary" onclick="submitFood()">Tạo món ăn</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal chỉnh sửa món ăn -->
+<div class="modal fade" id="editFoodModal" aria-labelledby="editFoodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editFoodModalLabel">Chỉnh sửa món ăn</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editFoodForm">
+                    <input type="hidden" id="editFoodID">
+                    <div class="mb-3">
+                        <label class="form-label">Tên món ăn</label>
+                        <input type="text" id="editFoodName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mô tả</label>
+                        <textarea id="editFoodDescription" class="form-control" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giá ($)</label>
+                        <input type="number" id="editFoodPrice" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Loại món ăn</label>
+                        <select id="editFoodCategory" class="form-select">
+                            <option value="1">Morning</option>
+                            <option value="2">Lunch</option>
+                            <option value="3">Afternoon</option>
+                            <option value="4">Evening</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hình ảnh món ăn</label>
+                        <input type="file" id="editFoodImage" class="form-control" accept="image/*" onchange="previewEditImage(event)">
+                        <div class="mt-2 text-center">
+                            <img id="editPreview" src="#" class="img-thumbnail" style="max-width: 150px; display: none;">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <button type="button" class="btn btn-success" onclick="updateFood()">Lưu thay đổi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--   === Description Ends ===   -->
+
