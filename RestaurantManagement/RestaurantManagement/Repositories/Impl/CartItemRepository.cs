@@ -17,5 +17,10 @@ namespace RestaurantManagement.Repositories.Impl
             return await _context.CartItems.Include(x=>x.Food).Where(x=> x.UserID == userId).ToListAsync();   
         }
 
+        public async Task RemoveRange(List<CartItem> list)
+        {
+             _context.RemoveRange(list);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace RestaurantManagement.Repositories
     public interface ICartItemRepository : IGenericRepository<CartItem>
     {
         public  Task<List<CartItem>> GetListCartItemsByCurrentUser(int userId);
+        public Task RemoveRange(List<CartItem> list);
     }
 }
