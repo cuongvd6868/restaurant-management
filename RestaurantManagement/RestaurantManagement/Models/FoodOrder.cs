@@ -14,5 +14,6 @@
 
         public int PaymentMethodID { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+        public DateTime OrderDate { get; set; } = DateTime.Now;
     }
 }

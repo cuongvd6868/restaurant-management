@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace RestaurantManagement.Controllers
 {
-    [Authorize]
+  //  [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
@@ -55,8 +55,8 @@ namespace RestaurantManagement.Controllers
         [Route("GetListOrders")]
         public async Task<IActionResult> GetListOrders()
         {
-            var userId = GetUserId();
-            if (userId == null) return Unauthorized("User is not logged in");
+            //var userId = GetUserId();
+            //if (userId == null) return Unauthorized("User is not logged in");
 
             var Items = await _foodOderRepository.GetListAlll();
 
