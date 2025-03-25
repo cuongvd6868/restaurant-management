@@ -1,0 +1,49 @@
+.order_table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #222;
+    color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.order_table th, .order_table td {
+    padding: 16px 20px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+}
+
+.order_table th {
+    background: #333;
+    font-weight: bold;
+}
+
+.order_table tbody tr {
+    height: 60px;
+}
+
+.order_table tbody tr:hover {
+    background: #333;
+}
+
+.status {
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status.pending {
+    background: orange;
+    color: white;
+}
+
+.status.shipped {
+    background: blue;
+    color: white;
+}
+
+.status.delivered {
+    background: green;
+    color: white;
+}

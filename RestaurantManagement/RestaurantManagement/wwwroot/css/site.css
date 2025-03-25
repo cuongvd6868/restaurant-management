@@ -706,6 +706,188 @@ table {
   border-spacing: 0;
 }
 
+.cart_table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #222;
+  margin-top: 20px;
+}
+
+.cart_table th, .cart_table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+}
+
+.cart_table th {
+  background-color: #333;
+  font-weight: bold;
+}
+
+.cart_item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart_item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.trash_icon {
+  cursor: pointer;
+  font-size: 22px;
+  transition: transform 0.1s ease-in-out, color 0.2s;
+}
+
+.trash_icon:hover {
+  transform: scale(1.1);
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.quantity button {
+  width: 30px;
+  height: 30px;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.quantity input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  background-color: #222;
+  color: white;
+  font-size: 16px;
+}
+
+.cart_actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cart_actions input {
+  padding: 10px;
+  border: none;
+  background-color: #333;
+  color: white;
+  flex: 1;
+}
+
+.apply_coupon {
+  padding: 10px 15px;
+  background-color: orange;
+  border: none;
+  cursor: pointer;
+}
+
+.update_cart {
+  padding: 10px 15px;
+  background-color: brown;
+  border: none;
+  cursor: pointer;
+}
+
+.checkout_summary {
+  background: #222;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  width: 250px;
+  margin: 20px auto;
+}
+
+.checkout_summary p {
+  margin: 10px 0;
+}
+
+.checkout_summary span {
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.checkout_btn {
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.checkout_btn:hover {
+  background: #e68900;
+}
+
+.order_table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #222;
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.order_table th, .order_table td {
+  padding: 16px 20px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+.order_table th {
+  background: #333;
+  font-weight: bold;
+}
+
+.order_table tbody tr {
+  height: 60px;
+}
+
+.order_table tbody tr:hover {
+  background: #333;
+}
+
+.status {
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status.pending {
+  background: orange;
+  color: white;
+}
+
+.status.shipped {
+  background: blue;
+  color: white;
+}
+
+.status.delivered {
+  background: green;
+  color: white;
+}
+
 * {
   box-sizing: border-box;
 }
