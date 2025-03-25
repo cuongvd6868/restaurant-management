@@ -31,7 +31,12 @@
                         <p class="food-desc">@food.Description</p>
                         <hr>
                         <div class="food-action">
-                            <a href="" class="add-to-cart_btn">Add To Cart</a>
+                            <a href="javascript:void(0);"
+                               class="add-to-cart_btn"
+                               data-food-id="@food.FoodID"
+                               data-price="@food.Price">
+                                Add To Cart
+                            </a>
                             <p class="price">@food.Price.ToString("C")</p>
                         </div>
                     </div>

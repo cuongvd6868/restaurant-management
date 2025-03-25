@@ -1,0 +1,240 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./assets/css/cart.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <div class="view_cart">
+        <div class="container">
+            <table class="cart_table">
+                <thead>
+                    <tr>
+                        <th>Food</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <div class="cart_actions">
+                <input type="text" placeholder="Coupon code">
+                <button class="apply_coupon">Apply coupon</button>
+                <button class="update_cart">Update Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart_checkout">
+        <div class="container">
+            <div class="checkout_summary">
+                <p>Total Items: <span>0</span></p>
+                <p>Total Price: <span id="totalPrice"></span></p>
+                <button class="checkout_btn" id="checkout">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+          $(document).ready(function () {
+
+                           function getUserIdFromToken(token) {
+            try {
+                const payloadBase64 = token.split('.')[1];
+                const payloadJson = atob(payloadBase64);
+                const payload = JSON.parse(payloadJson); 
+                return payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+
+            } catch (error) {
+                console.error("Lỗi khi giải mã token:", error);
+                return null;
+            }
+        }
+
+            $("#checkout").click(async function (event) {
+                event.preventDefault();
+                const token = localStorage.getItem("accessToken");
+                if (!token) {
+                    window.location.href = "https://localhost:7081/Auth/Login";
+                }
+                    let userId = getUserIdFromToken(token);
+
+                let totalPriceText = $("#totalPrice").text().replace("$", "").replace(",", "").trim();
+                let moneyToPay = parseFloat(totalPriceText);
+
+                if (isNaN(moneyToPay) || moneyToPay <= 0) {
+                    alert("❌ Số tiền thanh toán không hợp lệ!");
+                    return;
+                }
+                try {
+                    const response = await fetch(`https://localhost:7081/api/Vnpay/CreatePaymentUrl?moneyToPay=${moneyToPay}&description=${userId}`);
+
+                    if (!response.ok) throw new Error(await response.text());
+
+                    const paymentUrl = await response.text();
+                    console.log("Redirecting to payment URL:", paymentUrl);
+
+                    window.location.href = paymentUrl;
+
+                } catch (error) {
+                     Toastify({
+                    text: error,
+                    duration: 3000,
+                    gravity: "top", 
+                    position: "right", 
+                    backgroundColor: "#ff2a2a",
+                    stopOnFocus: true, 
+                }).showToast();
+                }
+            });
+        });
+
+
+        $(document).ready(async function () {
+            await checkLogin();
+            await loadCart();
+
+            async function checkLogin() {
+                const token = localStorage.getItem("accessToken");
+                if (!token) {
+                    window.location.href = "https://localhost:7081/Auth/Login";
+                }
+            }
+
+            async function loadCart() {
+                try {
+                    const token = localStorage.getItem("accessToken");
+
+                    const response = await fetch("https://localhost:7081/api/Cart/GetCart", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+                    if (response.status === 401) {
+                        window.location.href = "https://localhost:7081/Auth/Login";
+                        return;
+                    }
+
+                    if (!response.ok) throw new Error("Failed to fetch cart data");
+
+                    const cartItems = await response.json();
+                    renderCart(cartItems);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            function renderCart(cartItems) {
+                let cartTableBody = $(".cart_table tbody");
+                let totalItems = 0;
+                let totalPrice = 0;
+                cartTableBody.empty(); // Xóa dữ liệu cũ trước khi render mới
+
+                cartItems.forEach(item => {
+                    let subtotal = item.quantity * item.price;
+                    totalItems += item.quantity;
+                    totalPrice += subtotal;
+
+                    let cartRow = `
+                        <tr data-id="${item.cartItemID}">
+                            <td>
+                                <div class="cart_item">
+                                    <span class="trash_icon" onclick="confirmRemove(${item.cartItemID})">🗑️</span>
+                                    <img width="150px" src="${item.food.foodLink}" alt="${item.food.foodName}">
+                                    <span class="item_name">${item.food.foodName}</span>
+                                </div>
+                            </td>
+                            <td>$${item.price.toFixed(2)}</td>
+                            <td>
+                                <div class="quantity">
+                                    <button onclick="updateQuantity(${item.cartItemID}, ${item.quantity - 1})">-</button>
+                                    <input type="text" value="${item.quantity}" readonly>
+                                    <button onclick="updateQuantity(${item.cartItemID}, ${item.quantity + 1})">+</button>
+                                </div>
+                            </td>
+                            <td>$${subtotal.toFixed(2)}</td>
+                        </tr>
+                    `;
+                    cartTableBody.append(cartRow);
+                });
+
+                $(".checkout_summary p span").eq(0).text(totalItems);
+                $(".checkout_summary p span").eq(1).text(`$${totalPrice.toFixed(2)}`);
+            }
+
+            window.updateQuantity = async function (cartItemID, newQuantity) {
+                if (newQuantity < 1) return;
+                try {
+                    const token = localStorage.getItem("accessToken");
+                    const response = await fetch(`https://localhost:7081/api/Cart/UpdateCartItem/${cartItemID}?quantity=${newQuantity}`, {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+                    if (response.status === 401) {
+                        window.location.href = "https://localhost:7081/Auth/Login";
+                        return;
+                    }
+
+                    if (!response.ok) throw new Error("Failed to update quantity");
+
+                    await loadCart();
+                } catch (error) {
+                    console.error("Error updating quantity:", error);
+                }
+            }
+
+            window.confirmRemove = function (cartItemID) {
+                if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                    removeItem(cartItemID);
+                }
+            };
+
+            window.removeItem = async function (cartItemID) {
+                try {
+                    const token = localStorage.getItem("accessToken");
+                    const response = await fetch(`https://localhost:7081/api/Cart/RemoveFromCart/${cartItemID}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.status === 401) {
+                        window.location.href = "https://localhost:7081/Auth/Login";
+                        return;
+                    }
+
+                    if (!response.ok) throw new Error("Failed to remove item");
+
+                    await loadCart();
+                } catch (error) {
+                    console.error("Error removing item:", error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

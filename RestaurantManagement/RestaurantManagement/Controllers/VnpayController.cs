@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantManagement.Models;
+using RestaurantManagement.Repositories;
 using VNPAY.NET;
 using VNPAY.NET.Enums;
 using VNPAY.NET.Models;
@@ -14,14 +16,19 @@ namespace RestaurantManagement.Controllers
         private readonly IConfiguration _configuration;
 
         private readonly IVnpay _vnpay;
-
-        public VnpayController(IConfiguration configuration , IVnpay vnpay)
+        private IFoodOderRepository _foodOderRepository;
+        private IFoodOderDetailRepository _foodOderDetailRepository;
+        private IFoodRepository _foodRepository;
+        private ICartItemRepository _cartItemRepository;
+        public VnpayController(IConfiguration configuration , IVnpay vnpay, IFoodOderRepository foodOderRepository, IFoodOderDetailRepository foodOderDetailRepository, IFoodRepository foodRepository, ICartItemRepository cartItemRepository)
         {
             _vnpay = vnpay;
             _configuration = configuration;
-
+            _foodOderRepository = foodOderRepository;
+            _foodOderDetailRepository = foodOderDetailRepository;
+            _foodRepository = foodRepository;
+            _cartItemRepository = cartItemRepository;
             _vnpay.Initialize(_configuration["Vnpay:TmnCode"], _configuration["Vnpay:HashSecret"], _configuration["Vnpay:BaseUrl"], _configuration["Vnpay:ReturnUrl"]);
-
         }
 
         [HttpGet("CreatePaymentUrl")]
@@ -78,7 +85,7 @@ namespace RestaurantManagement.Controllers
         }
 
         [HttpGet("Callback")]
-        public ActionResult<string> Callback()
+        public async Task<IActionResult> Callback(string vnp_OrderInfo)
         {
             if (Request.QueryString.HasValue)
             {
@@ -89,19 +96,46 @@ namespace RestaurantManagement.Controllers
 
                     if (paymentResult.IsSuccess)
                     {
-                        return Ok(resultDescription);
+                        if (!int.TryParse(vnp_OrderInfo, out int userId) || userId == 0)
+                        {
+                            return Unauthorized("User is not logged in");
+                        }
+
+                        var cartItems = await _cartItemRepository.GetListCartItemsByCurrentUser(userId);
+                        decimal total = cartItems.Sum(x => x.Quantity * x.Price);
+
+                        FoodOrder foodOrder = await _foodOderRepository.AddAsync(new FoodOrder
+                        {
+                            UserID = userId,
+                            Address = "",
+                            PaymentMethodID = 2,
+                            Status = "Paid",
+                            TotalPrice = total
+                        });
+
+                        List<FoodOrderDetail> details = cartItems.Select(item => new FoodOrderDetail
+                        {
+                            FoodID = item.FoodID,
+                            OrderID = foodOrder.OrderID,
+                            PurchaseQuantity = item.Quantity,
+                            IsFeedBack = false
+                        }).ToList();
+
+                        await _foodOderDetailRepository.AddList(details);
+                        await _cartItemRepository.RemoveRange(cartItems);
+
+                        return RedirectToAction("ResultPayment", "Home", new { message = "Thanh toán thành công!" });
                     }
 
-                    return BadRequest(resultDescription);
+                    return RedirectToAction("ResultPayment", "Home", new { message = resultDescription });
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex.Message);
+                    return RedirectToAction("ResultPayment", "Home", new { message = $"Lỗi: {ex.Message}" });
                 }
             }
 
-            return NotFound("Không tìm thấy thông tin thanh toán.");
+            return RedirectToAction("ResultPayment", "Home", new { message = "Không tìm thấy thông tin thanh toán." });
         }
-
     }
 }
