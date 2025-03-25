@@ -23,6 +23,12 @@
                 <li class="navbar_item"  >
                     <a class="navbar_link" asp-area="" asp-controller="Home" asp-action="Cart">Cart</a>
                 </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                <li class="navbar_item">
+                    <a class="navbar_link" asp-area="" asp-controller="Orders" asp-action="Index">View Order</a>
+                </li>
+                }
                 <li class="navbar_item">
                     <a class="navbar_link">Blog</a>
                 </li>
