@@ -21,7 +21,7 @@
                                 <button type="submit"><img src="~/img/Icon/heart.svg" alt=""></button>
                             </form>
                         </div>
-                        <img src="@food.FoodLink" alt="" class="food-img">
+                        <img src="https://localhost:7081/api/foodimage/get/@food.FoodID" alt="" class="food-img">
                     </div>
                     <a href="https://localhost:7081/api/foods/FoodDetail/@food.FoodID" style="color: #fff">
                         <h3 class="food-name">@food.FoodName</h3>
