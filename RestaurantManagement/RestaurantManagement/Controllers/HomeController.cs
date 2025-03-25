@@ -19,7 +19,6 @@ public class HomeController : Controller
         return View();
     }
 
-    [Authorize(Roles = "Customer")]
     public IActionResult Privacy()
     {
         return View();

@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "AdminLayout";
+}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        loadUsers();
+    });
+
+    function loadUsers() {
+        fetch("/api/users/list")
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById("userTableBody");
+                tbody.innerHTML = ""; // Xóa nội dung cũ
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="text-center">Không có người dùng nào!</td></tr>`;
+                    return;
+                }
+
+                data.forEach(user => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.userName}</td>
+                        <td>${user.email}</td>
+                        <td>${user.address}</td>
+                        <td>
+                            ${user.isBlock ? '<span class="badge bg-danger">Bị khóa</span>' : '<span class="badge bg-success">Hoạt động</span>'}
+                        </td>
+                        <td>
+
+                            <a href="#" class="text-danger" onclick="confirmBanUnban(${user.id}, ${user.isBlock})">
+                            ${user.isBlock ? '<i class="btn btn-primary" >Mở khóa</i>' : '<i class="btn btn-primary" >Khóa</i>'}
+                            </a>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy danh sách người dùng:", error);
+                document.getElementById("userTableBody").innerHTML = `<tr><td colspan="7" class="text-center text-danger">Không thể tải dữ liệu!</td></tr>`;
+            });
+    }
+
+    function openEditUserModal(id, userName, email, address, isBlock) {
+        document.getElementById("editUserId").value = id;
+        document.getElementById("editUserName").value = userName;
+        document.getElementById("editUserEmail").value = email;
+        document.getElementById("editUserAddress").value = address;
+        document.getElementById("editUserStatus").checked = isBlock;
+    }
+
+        function confirmBanUnban(id, isBlocked) {
+        const action = isBlocked ? "mở chặn" : "chặn";
+        if (confirm(`Bạn có chắc chắn muốn ${action} người dùng này?`)) {
+            console.log(`${action} người dùng ID:`, id);
+
+            fetch(`/api/users/ban/${id}`, {
+                method: "PUT"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Có lỗi xảy ra!");
+                }
+                return response.json();
+            })
+            .then(data => {
+                
+                window.location.reload();
+            })
+            .catch(error => {
+               
+            });
+        }
+    }
+  
+
+</script>
+
+<h2 class="mb-3">Danh sách người dùng</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Tên người dùng</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody id="userTableBody">
+        <tr>
+            <td colspan="7" class="text-center">Đang tải dữ liệu...</td>
+        </tr>
+    </tbody>
+</table>

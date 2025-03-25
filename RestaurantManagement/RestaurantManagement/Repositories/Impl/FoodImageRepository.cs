@@ -5,8 +5,15 @@ namespace RestaurantManagement.Repositories.Impl
 {
     public class FoodImageRepository : GenericRepository<FoodImage>, IFoodImageRepository
     {
-        public FoodImageRepository(IGenericDAO<FoodImage> dao) : base(dao)
+        private readonly IFoodImageDAO _dao;
+        public FoodImageRepository(IFoodImageDAO dao) : base(dao)
         {
+            _dao = dao;
+        }
+
+        public async Task<FoodImage?> GetByFoodIdAsync(int foodId)
+        {
+            return await _dao.GetByFoodIdAsync(foodId);
         }
     }
 }

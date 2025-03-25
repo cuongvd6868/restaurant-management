@@ -74,7 +74,7 @@
                     window.location.href = "https://localhost:7081/Auth/Login";
                 }
                     let userId = getUserIdFromToken(token);
-
+                    // Hàm tính tiền ở đây do đang dùng đô nên việc thanh toán sẽ ko đúng logic tí có thể e chuyển sang tỉ giá vnd cx đc
                 let totalPriceText = $("#totalPrice").text().replace("$", "").replace(",", "").trim();
                 let moneyToPay = parseFloat(totalPriceText);
 
@@ -93,6 +93,7 @@
                     window.location.href = paymentUrl;
 
                 } catch (error) {
+                    //thư viện toast thông báo messs
                      Toastify({
                     text: error,
                     duration: 3000,

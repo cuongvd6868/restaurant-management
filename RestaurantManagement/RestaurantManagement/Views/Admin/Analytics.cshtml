@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "AdminLayout";
+}
+
+<canvas id="orderChart"></canvas>
+<canvas id="monthChart" style="margin-top: 40px;"></canvas> <!-- Biểu đồ theo tháng -->
+
+<table id="orderSummary" border="1" style="margin-top: 20px; width: 100%; text-align: center;">
+    <thead>
+        <tr>
+            <th>Tháng</th>
+            <th>Số đơn hàng</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    fetch("/api/Orders/GetListOrders")
+        .then(response => response.json())
+        .then(orders => {
+            // Nhóm đơn hàng theo ngày
+            const dailyOrders = {};
+            const monthlyOrders = {};
+
+            orders.forEach(order => {
+                const date = order.orderDate.split("T")[0]; // YYYY-MM-DD
+                const month = date.slice(0, 7); // YYYY-MM
+
+                dailyOrders[date] = (dailyOrders[date] || 0) + 1;
+                monthlyOrders[month] = (monthlyOrders[month] || 0) + 1;
+            });
+
+            // Sắp xếp theo ngày và tháng
+            const dailyLabels = Object.keys(dailyOrders).sort();
+            const dailyData = dailyLabels.map(date => dailyOrders[date]);
+
+            const monthLabels = Object.keys(monthlyOrders).sort();
+            const monthData = monthLabels.map(month => monthlyOrders[month]);
+
+            // Vẽ biểu đồ đơn hàng theo ngày
+            const ctx = document.getElementById("orderChart").getContext("2d");
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: dailyLabels,
+                    datasets: [{
+                        label: "Số đơn hàng theo ngày",
+                        data: dailyData,
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        borderWidth: 2,
+                        pointRadius: 5,
+                        pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: "Số đơn hàng" } },
+                        x: { title: { display: true, text: "Ngày" } }
+                    }
+                }
+            });
+
+            // Vẽ biểu đồ đơn hàng theo tháng
+            const ctxMonth = document.getElementById("monthChart").getContext("2d");
+            new Chart(ctxMonth, {
+                type: "bar",
+                data: {
+                    labels: monthLabels,
+                    datasets: [{
+                        label: "Số đơn hàng theo tháng",
+                        data: monthData,
+                        backgroundColor: "rgba(255, 99, 132, 0.5)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: "Số đơn hàng" } },
+                        x: { title: { display: true, text: "Tháng" } }
+                    }
+                }
+            });
+
+            // Hiển thị bảng phân tích theo tháng
+            const tableBody = document.querySelector("#orderSummary tbody");
+            monthLabels.forEach((month, index) => {
+                const row = `<tr><td>${month}</td><td>${monthData[index]}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+        })
+        .catch(error => console.error("Lỗi khi lấy dữ liệu đơn hàng:", error));
+</script>

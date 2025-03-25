@@ -53,6 +53,7 @@ namespace RestaurantManagement.Controllers
             return await _foodService.CreateFoodAsync(food);
         }
         [Route("UpdateFoodAsync")]
+        [HttpPut]
         public async Task<Food> UpdateFoodAsync(Food food)
         {
             return await _foodService.UpdateFoodAsync(food);

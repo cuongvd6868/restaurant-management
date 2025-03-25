@@ -1,6 +1,7 @@
 ﻿using RestaurantManagement.DAOs;
 using RestaurantManagement.DTOs;
 using RestaurantManagement.Models;
+using RestaurantManagement.Repositories;
 using RestaurantManagement.ViewModel;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -9,8 +10,8 @@ namespace RestaurantManagement.Services.Impl
 {
     public class FoodService : IFoodService
     {
-        private IFoodDAO foodDAO;
         private readonly HttpClient _httpClient;
+        private IFoodDAO foodDAO;
 
         public FoodService(IFoodDAO foodDAO, HttpClient httpClient)
         {
@@ -45,6 +46,26 @@ namespace RestaurantManagement.Services.Impl
             return await foodDAO.GetByIdAsync(foodId);
         }
 
+        public async Task<Food> CreateFood(Food food)
+        {
+            return await foodDAO.AddAsync(food);
+        }
+
+        public async Task<bool> DeleteFood(int id)
+        {
+            return await foodDAO.DeleteAsync(id);
+        }
+
+        public async Task<Food> GetFoodById(int id)
+        {
+
+            return await foodDAO.GetByIdAsync(id);
+
+        }
+        public async Task<Food> UpdateFood(Food food)
+        {
+            return await foodDAO.UpdateAsync(food);
+        }
         public async Task<PagedListAPI<FoodViewModel>> GetFoodsAPI(int? cateId, int pageNumber, int pageSize)
         {
             var response = await _httpClient.GetAsync($"https://localhost:7081/api/Foods/GetFooodsAsync?cateId={cateId}&pageNumber={pageNumber}&pageSize={pageSize}");

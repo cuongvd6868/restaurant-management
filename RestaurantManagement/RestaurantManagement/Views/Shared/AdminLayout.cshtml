@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<!--   ***** Link To Custom Stylesheet *****   -->
+	<link rel="stylesheet" type="text/css" href="~/css/style.css">
+	
+	<!-- *******  Font Awesome Icons Link  ******* -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard</title>
+</head>
+<body>
+	<!--   *** Page Wrapper Starts ***   -->
+	<div class="page-wrapper">
+
+		<!--   *** Top Bar Starts ***   -->
+		<div class="top-bar">
+			<div class="top-bar-left">
+				<div class="hamburger-btn">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="logo">
+					<img src="images/logo.png">
+				</div>
+			</div>
+
+			<div class="search-box">
+				<input type="text" class="input-box" placeholder="Search...">
+				<span class="search-btn">
+					<i class="fa-solid fa-search"></i>
+				</span>
+			</div>
+
+			<div class="top-bar-right">
+				<div class="mode-switch">
+					<i class="fa-solid fa-moon"></i>
+				</div>
+				<div class="notifications">
+					<i class="fa-solid fa-bell"></i>
+				</div>
+				<div class="profile">
+					<img src="images/profile-img.jpg">
+				</div>
+			</div>
+		</div>
+		<!--   *** Top Bar Ends ***   -->
+		<!--   === Side Bar Starts ===   -->
+		<aside class="side-bar">
+			<!--   === Nav Bar Links Starts ===   -->
+			<span class="menu-label">MENU</span>
+			<ul class="navbar-links navbar-links-1">
+				<li class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Index" && ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+					<a asp-action="Index" asp-controller="Admin">
+						<span class="nav-icon">
+							<i class="fa-solid fa-house"></i>
+						</span>
+						<span class="nav-text">Dashboard</span>
+					</a>
+				</li>
+				<li class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Food" && ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+					<a asp-action="Food" asp-controller="Admin">
+						<span class="nav-icon">
+							<i class="fa-solid fa-tasks"></i>
+						</span>
+						<span class="nav-text">Foods</span>
+					</a>
+				</li>
+				<li class ="@(ViewContext.RouteData.Values["action"]?.ToString() == "Account" && ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+					<a asp-action="Account" asp-controller="Admin" >
+						<span class="nav-icon">
+							<i class="fa-solid fa-user"></i>
+						</span>
+						<span class="nav-text">Account</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="nav-icon">
+							<i class="fa-solid fa-bell"></i>
+						</span>
+						<span class="nav-text">Notifications</span>
+					</a>
+				</li>
+				<li class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Analytics" && ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+
+					<a asp-action="Analytics" asp-controller="Admin">
+
+						<span class="nav-icon">
+							<i class="fa-solid fa-chart-line"></i>
+						</span>
+						<span class="nav-text">Analytics</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="nav-icon">
+							<i class="fa-solid fa-comment"></i>
+						</span>
+						<span class="nav-text">Messages</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="nav-icon">
+							<i class="fa-solid fa-bookmark"></i>
+						</span>
+						<span class="nav-text">Collections</span>
+					</a>
+				</li>
+			</ul>
+			<span class="line"></span>
+			<span class="menu-label">PREFERENCES</span>
+			<ul class="navbar-links navbar-links-2">
+				<li>
+					<a href="#">
+						<span class="nav-icon">
+							<i class="fa-solid fa-file"></i>
+						</span>
+						<span class="nav-text">Portfolio</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="nav-icon">
+							<i class="fa-solid fa-pen"></i>
+						</span>
+						<span class="nav-text">History</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="nav-icon">
+							<i class="fa-solid fa-users"></i>
+						</span>
+						<span class="nav-text">People & Teams</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="nav-icon">
+							<i class="fa-solid fa-question"></i>
+						</span>
+						<span class="nav-text">Help & Center</span>
+					</a>
+				</li>
+			</ul>
+			<!--   === Nav Bar Links Ends ===   -->
+			<!--   === Side Bar Footer Starts ===   -->
+			<div class="sidebar-footer">
+				<div class="settings">
+					<span class="gear-icon">
+						<i class="fa-solid fa-gear"></i>
+					</span>
+					<span class="text">Settings</span>
+				</div>
+				<div class="logoutBtn">
+					<span class="logout-icon">
+						<i class="fa-solid fa-right-from-bracket"></i>
+					</span>
+					<span class="text">Logout</span>
+				</div>
+			</div>
+			<!--   === Side Bar Footer Ends ===   -->
+		</aside>
+		<!--   === Side Bar Ends ===   -->
+		<!--   === Contents Section Starts ===   -->
+		<div class="contents">
+			<!--   === Panel Bar Starts ===   -->
+			@* <div class="panel-bar">
+				<div class="row-1">
+					<h1>Products</h1>
+				</div>
+				<div class="row-2">
+					<a asp-action="Index" asp-controller="Admin" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Index" && ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+						Overview
+					</a>
+					<a asp-action="Food" asp-controller="Admin" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Food" && ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+						Products
+					</a>
+
+					<a href="#">Total Sells</a>
+					<a href="#">Perchases</a>
+				</div>
+			</div> *@
+			<!--   === Panel Bar Ends ===   -->
+			<!--   === Description Starts ===   -->
+            @RenderBody()
+			<!--   === Description Ends ===   -->
+		</div>
+		<!--   === Contents Section Ends ===   -->
+
+	</div>
+	<!--   *** Page Wrapper Ends ***   -->
+	<!--   *** Link To Custom Script File ***   -->
+	<script type="text/javascript" src="~/js/script.js" defer></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

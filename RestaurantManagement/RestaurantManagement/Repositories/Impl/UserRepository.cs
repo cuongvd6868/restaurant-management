@@ -16,7 +16,8 @@ namespace RestaurantManagement.Repositories.Impl
         private readonly IPasswordHasher<Customer> _passwordHasher;
         private readonly ILogger<UserRepository> logger;
         public UserRepository(FoodDbContext context,
-            IPasswordHasher<Customer> passwordHasher, ILogger<UserRepository> logger)
+            IPasswordHasher<Customer> passwordHasher, 
+            ILogger<UserRepository> logger)
         {
             _context = context;
             _passwordHasher = passwordHasher;
@@ -78,11 +79,21 @@ namespace RestaurantManagement.Repositories.Impl
             };
         }
 
+        public async Task<IEnumerable<Customer>> GetAll()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<Customer> GetByEmail(string email)
         {
             var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             
             return existingUser;
+        }
+
+        public Task<Customer> GetById(int id)
+        {
+            return _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<Role> GetRole(Customer account)
@@ -96,6 +107,13 @@ namespace RestaurantManagement.Repositories.Impl
 
             Role role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == userRole.RoleId);
             return role;
+        }
+
+        public async Task<Customer> Update(Customer customer)
+        {
+            _context.Users.Update(customer);
+            await _context.SaveChangesAsync();
+            return customer;
         }
     }
 }
