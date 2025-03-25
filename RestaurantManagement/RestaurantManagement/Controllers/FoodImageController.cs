@@ -47,6 +47,34 @@ namespace RestaurantManagement.Controllers
             }
         }
 
+        [HttpPut("upload")]
+        public async Task<IActionResult> UpDateFoodImage(int foodId, IFormFile file)
+        {
+            // Kiểm tra nếu tệp không có dữ liệu
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+
+            // Đọc tệp tin và chuyển thành byte[]
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                var imageData = memoryStream.ToArray();
+
+                var image = await _foodImageRepository.GetByFoodIdAsync(foodId);
+
+                // Tạo đối tượng FoodImage và lưu vào database
+                image.ImageName = file.FileName;
+                image.ImageData = imageData;
+                image.FoodID = foodId;
+                
+                await _foodImageRepository.UpdateAsync(image);
+
+                return Ok(new { message = "Image uploaded successfully." });
+            }
+        }
+
         [HttpGet("get/{imageId}")]
         public async Task<IActionResult> GetFoodImage(int imageId)
         {

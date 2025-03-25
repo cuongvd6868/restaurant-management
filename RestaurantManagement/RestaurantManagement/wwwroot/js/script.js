@@ -117,37 +117,58 @@ function previewEditImage(event) {
     }
 }
 
-function updateFood() {
+async function updateFood() {
     let foodID = document.getElementById("editFoodID").value;
-    let FoodName = document.getElementById("editFoodName").value;
-    let Description = document.getElementById("editFoodDescription").value;
-    let Price = document.getElementById("editFoodPrice").value;
-    let ListPrice = document.getElementById("editFoodPrice").value;
-    let FoodCategoryID = document.getElementById("editFoodCategory").value;
+    let foodName = document.getElementById("editFoodName").value;
+    let description = document.getElementById("editFoodDescription").value;
+    let price = parseFloat(document.getElementById("editFoodPrice").value);
+    let listPrice = parseFloat(document.getElementById("editFoodPrice").value); 
+    let foodCategoryID = document.getElementById("editFoodCategory").value;
 
     let formData = {
         foodID: foodID,
-        foodName: FoodName,
-        description: Description,
-        price: parseFloat(Price),
-        listPrice: parseFloat(ListPrice),
-        foodCategoryID: FoodCategoryID
+        foodName: foodName,
+        description: description,
+        price: price,
+        listPrice: listPrice,
+        foodCategoryID: foodCategoryID
     };
 
-    let fileInput = document.getElementById("editFoodImage");
-    if (fileInput.files.length > 0) {
-        formData.append("Image", fileInput.files[0]);
-    }
+    try {
+        let response = await fetch(`/api/foods/UpdateFoodAsync`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        });
 
-    fetch(`/api/foods/UpdateFoodAsync`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert("Cập nhật thành công!");
-            location.reload();
-        })
-        .catch(error => console.error("Lỗi:", error));
+        let data = await response.json();
+
+        if (!response.ok || !data.foodID) {
+            throw new Error(data.message || "Cập nhật thất bại!");
+        }
+
+        let foodId = data.foodID;
+        let fileInput = document.getElementById("editFoodImage");
+
+        if (fileInput.files.length > 0) {
+            let fileData = new FormData();
+            fileData.append("file", fileInput.files[0]);
+
+            let uploadResponse = await fetch(`/api/foodimage/upload?foodId=${foodId}`, {
+                method: "PUT",
+                body: fileData
+            });
+
+            if (!uploadResponse.ok) {
+                throw new Error("Upload ảnh thất bại!");
+            }
+        }
+
+        alert("Cập nhật thành công!");
+        location.reload();
+
+    } catch (error) {
+        console.error("Lỗi:", error);
+        alert(error.message);
+    }
 }
