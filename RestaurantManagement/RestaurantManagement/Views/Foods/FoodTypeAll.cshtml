@@ -22,3 +22,66 @@
 @await Html.PartialAsync("FoodType/Dessert", Model.DessertFoods)
 
 <div style="padding-bottom: 200px;"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<script>
+           $(document).ready(function () {
+        $(".add-to-cart_btn").click(async function (event) {
+            event.preventDefault(); // Ngăn chặn chuyển trang
+
+            const token = localStorage.getItem("accessToken");
+            if (!token) {
+                window.location.href = "https://localhost:7081/Auth/Login";
+                return;
+            }
+
+            let foodId = $(this).data("food-id");
+            let price = $(this).data("price");
+
+            if (!foodId || !price) {
+                alert("Thông tin sản phẩm không hợp lệ.");
+                return;
+            }
+
+            let cartData = {
+                foodId: foodId,
+                quantity: 1,
+                price: price
+            };
+
+            try {
+                const response = await fetch("https://localhost:7081/api/Cart/AddToCart", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(cartData)
+                });
+
+                if (response.status === 401) {
+                    window.location.href = "https://localhost:7081/Auth/Login";
+                    return;
+                }
+
+                if (!response.ok) throw new Error("Không thể thêm vào giỏ hàng");
+
+                Toastify({
+                    text: "🛒 Sản phẩm đã thêm vào giỏ hàng!",
+                    duration: 3000,
+                    gravity: "top", // Xuất hiện ở trên
+                    position: "right", // Góc phải
+                    backgroundColor: "#28a745",
+                    stopOnFocus: true, // Dừng khi di chuột vào
+                }).showToast();
+
+            } catch (error) {
+                console.error("Lỗi khi thêm vào giỏ hàng:", error);
+                alert("Có lỗi xảy ra. Vui lòng thử lại.");
+            }
+        });
+    });
+</script>
