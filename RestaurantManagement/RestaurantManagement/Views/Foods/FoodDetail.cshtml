@@ -17,7 +17,7 @@
 
 <div class="food-detail">
     <div class="container">
-        <img src="@Model.FoodLink" alt="@Model.FoodName" class="food-detail_img" style="object-fit:cover;">
+        <img src="https://localhost:7081/api/foodimage/get/@Model.FoodID" alt="@Model.FoodName" class="food-detail_img" style="object-fit:cover;">
         <div class="food-detail_desc">
             <h2 class="title">@Model.FoodName</h2>
             <div class="rating">
