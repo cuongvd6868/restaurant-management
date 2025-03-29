@@ -160,7 +160,7 @@
                             <td>
                                 <div class="cart_item">
                                     <span class="trash_icon" onclick="confirmRemove(${item.cartItemID})">🗑️</span>
-                                    <img width="150px" src="${item.food.foodLink}" alt="${item.food.foodName}">
+                                    <img width="150px" src="https://localhost:7081/api/foodimage/get/${item.food.foodID}" alt="${item.food.foodName}">
                                     <span class="item_name">${item.food.foodName}</span>
                                 </div>
                             </td>

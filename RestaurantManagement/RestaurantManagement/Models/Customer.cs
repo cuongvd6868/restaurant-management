@@ -16,6 +16,7 @@ namespace RestaurantManagement.Models
         [JsonIgnore]
         public ICollection<FoodOrder> FoodOrders { get; set; }
         public ICollection<CartItem> CartItems { get; set; }
+        [JsonIgnore]
         public ICollection<FoodFeedback> FoodFeedbacks { get; set; }
     }
 }
