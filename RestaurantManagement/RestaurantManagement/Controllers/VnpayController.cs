@@ -109,7 +109,7 @@ namespace RestaurantManagement.Controllers
                             UserID = userId,
                             Address = "",
                             PaymentMethodID = 2,
-                            Status = "Paid",
+                            Status = "Done",
                             TotalPrice = total
                         });
 
