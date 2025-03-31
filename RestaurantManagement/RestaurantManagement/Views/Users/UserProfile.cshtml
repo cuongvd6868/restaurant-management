@@ -1,0 +1,173 @@
+﻿@model RestaurantManagement.Models.Customer
+
+@{
+    ViewData["Title"] = "Thông tin cá nhân";
+}
+
+<div class="profile-container">
+    <!-- Header với background gradient -->
+    <div class="profile-header">
+        <div class="cover-photo"></div>
+        <div class="profile-info-header">
+            <div class="avatar-container">
+                <img src="@(Model.Avatar ?? "/images/default-avatar.png")"
+                     class="profile-avatar"
+                     alt="Avatar"
+                     id="user-avatar">
+                <label for="avatar-upload" class="avatar-upload-btn">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            </div>
+            <h1 class="profile-name">@Model.FirstName @Model.LastName</h1>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="profile-body">
+        <div class="row">
+            <!-- Cột thông tin -->
+            <div class="col-lg-8">
+                <div class="card profile-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-user-circle"></i> Thông tin cá nhân</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="info-content">
+                                    <h5>Email</h5>
+                                    <p>@Model.Email</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="info-content">
+                                    <h5>Số điện thoại</h5>
+                                    <p>@(Model.PhoneNumber ?? "Chưa cập nhật")</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="info-content">
+                                    <h5>Địa chỉ</h5>
+                                    <p>@(Model.Address ?? "Chưa cập nhật")</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thống kê hoạt động -->
+                <div class="card profile-card mt-4">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Hoạt động gần đây</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity-grid">
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p>Đã đặt 12 bữa ăn</p>
+                                    <small>Tháng này</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon primary">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p>Đánh giá 4.8/5 sao</p>
+                                    <small>Trung bình</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột tùy chọn -->
+            <div class="col-lg-4">
+                <div class="card profile-actions-card">
+                    <div class="card-body">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block action-btn">
+                            <i class="fas fa-edit"></i> Profile
+                        </a>
+                        <button class="btn btn-outline-secondary btn-block action-btn">
+                            <i class="fas fa-bell"></i> Message
+                        </button>
+                        <button class="btn btn-outline-danger btn-block action-btn">
+                            <i class="fas fa-lock"></i> Password
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card profile-actions-card mt-4">
+                    <div class="card-header">
+                        <h4><i class="fas fa-qrcode"></i> Mã thành viên</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="qr-code-placeholder">
+                            <!-- Có thể thay bằng QR code thực tế -->
+                            <i class="fas fa-qrcode fa-5x"></i>
+                        </div>
+                        <p class="mt-3">ID: @Model.Id</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        // Xử lý upload avatar
+        document.getElementById('avatar-upload').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    document.getElementById('user-avatar').src = event.target.result;
+                    // Gọi API update avatar ở đây
+                    // uploadAvatar(e.target.files[0]);
+                }
+
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Hiệu ứng khi di chuột vào các card
+        const cards = document.querySelectorAll('.profile-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            });
+        });
+    </script>
+}

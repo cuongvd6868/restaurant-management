@@ -1,0 +1,224 @@
+:root {
+    --primary-color: #5e72e4;
+    --secondary-color: #f7fafc;
+    --success-color: #2dce89;
+    --danger-color: #f5365c;
+    --dark-color: #172b4d;
+}
+
+.profile-container {
+    min-height: 100vh;
+}
+
+.profile-header {
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.cover-photo {
+    height: 180px;
+    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);
+    border-radius: 0 0 8px 8px;
+}
+
+.profile-info-header {
+    text-align: center;
+    position: relative;
+    margin-top: -70px;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 5px solid white;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.avatar-upload-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--primary-color);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.avatar-upload-btn:hover {
+    transform: scale(1.1);
+}
+
+.profile-name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: antiquewhite;
+    margin-top: 15px;
+}
+
+.profile-status {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.profile-status i {
+    font-size: 0.6rem;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.profile-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.profile-card .card-header {
+    background: white;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: 600;
+    color: var(--dark-color);
+    border-radius: 10px 10px 0 0 !important;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    background: rgba(0,0,0,0.01);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.info-item:hover {
+    background: rgba(94, 114, 228, 0.05);
+    transform: translateY(-3px);
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(94, 114, 228, 0.1);
+    color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1rem;
+}
+
+.info-content h5 {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.info-content p {
+    font-size: 1rem;
+    color: var(--dark-color);
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.activity-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.02);
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+}
+
+.activity-icon.success {
+    background: var(--success-color);
+}
+
+.activity-icon.primary {
+    background: var(--primary-color);
+}
+
+.activity-content p {
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+
+.activity-content small {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+.profile-actions-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+.action-btn {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.qr-code-placeholder {
+    background: #f8f9fe;
+    padding: 20px;
+    border-radius: 8px;
+    display: inline-block;
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .profile-info-header {
+        margin-top: -50px;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}

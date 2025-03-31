@@ -3,10 +3,11 @@ using RestaurantManagement.DTOs;
 using RestaurantManagement.Models;
 using RestaurantManagement.Repositories;
 using RestaurantManagement.Services;
+using System.Security.Claims;
 
 [ApiController]
 [Route("api/users")]
-public class UsersController : ControllerBase  
+public class UsersController : Controller
 {
     private readonly IUserRepository _userRepository;
     private readonly IUserService _userService;
@@ -47,6 +48,22 @@ public class UsersController : ControllerBase
         return Ok(await _userService.GetById(id));
     }
 
+    [HttpGet("profile")] 
+    public async Task<IActionResult> GetUserProfileView()
+    {
+        var currentUserId = GetUserId();
+
+        if (!currentUserId.HasValue)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        var user = await _userService.GetById(currentUserId.Value);
+
+        return View("UserProfile", user);
+    }
+
+
     [HttpPut("ban/{id}")]
     public async Task<IActionResult> BanUser(int id)
     {
@@ -64,5 +81,11 @@ public class UsersController : ControllerBase
         user.FirstName = cus.FirstName;
         user.LastName = cus.LastName;
         return Ok(await _userRepository.Update(user));
+    }
+
+    private int? GetUserId()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        return userIdClaim != null ? int.Parse(userIdClaim) : (int?)null;
     }
 }
