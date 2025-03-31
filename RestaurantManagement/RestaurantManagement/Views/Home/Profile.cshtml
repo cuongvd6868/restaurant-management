@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model RestaurantManagement.Models.Customer
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center bg-primary text-white">
+                    <h4>Chỉnh sửa hồ sơ</h4>
+                </div>
+                <div class="card-body">
+                    <form id="editProfileForm">
+                        <input type="hidden" id="Id" value="@Model.Id">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tên</label>
+                                <input type="text" class="form-control" id="FirstName" value="@Model.FirstName">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Họ</label>
+                                <input type="text" class="form-control" id="LastName" value="@Model.LastName">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Số điện thoại</label>
+                                <input type="tel" class="form-control" id="PhoneNumber" value="@Model.PhoneNumber">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Địa chỉ</label>
+                                <input type="text" class="form-control" id="Address" value="@Model.Address">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="@Model.Email" readonly>
+                        </div>
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-success" onclick="updateProfile()">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateProfile() {
+        const user = {
+            Id: document.getElementById("Id").value,
+            FirstName: document.getElementById("FirstName").value,
+            LastName: document.getElementById("LastName").value,
+            Address: document.getElementById("Address").value,
+            PhoneNumber: document.getElementById("PhoneNumber").value
+        };
+
+        fetch('/api/users/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Cập nhật thành công!');
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+            alert('Cập nhật thất bại!');
+        });
+    }
+</script>

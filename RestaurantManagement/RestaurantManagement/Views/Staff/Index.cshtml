@@ -28,10 +28,6 @@
                     {
                         <a class="btn btn-outline-primary" onclick="acceptOrder(this)" data-order-id="@item.OrderID" data-user-id="@item.UserID">Accept</a>
                     }
-                    @if (@item.Status == "Processing")
-                    {
-                        <a class="btn btn-outline-danger">Cancel</a>
-                    }
                 </td>
             </tr>
         }
