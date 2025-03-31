@@ -111,6 +111,11 @@ namespace RestaurantManagement.Repositories.Impl
 
         public async Task<Customer> Update(Customer customer)
         {
+            var existingCustomer = _context.Customers.Find(customer.Id);
+            if (existingCustomer == null)
+            {
+                throw new Exception("Khách hàng không tồn tại");
+            }
             _context.Users.Update(customer);
             await _context.SaveChangesAsync();
             return customer;
