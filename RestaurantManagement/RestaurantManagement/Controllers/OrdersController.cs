@@ -82,6 +82,18 @@ namespace RestaurantManagement.Controllers
             return Ok(Items);
         }
 
+        [HttpGet]
+        [Route("GetListOrders")]
+        public async Task<IActionResult> GetListOrders()
+        {
+            var userId = GetUserId();
+            if (userId == null) return Unauthorized("User is not logged in");
+
+            var Items = await _foodOderRepository.GetListAlll();
+
+            return Ok(Items);
+        }
+
         [HttpPut]
         [Route("ChangeOrderStatus")]
         public async Task<IActionResult> ChangeOrderStatus(ChangeOrderStatusRequest request)
