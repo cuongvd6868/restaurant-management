@@ -83,6 +83,19 @@ namespace RestaurantManagement.Controllers
 
             return View("~/Views/Foods/FoodTypeAll.cshtml", model);
         }
+        [Route("GetFoodAll")]
+        public async Task<IActionResult> GetFoodAll(int? cateId, string? search, int? pageNumber, int? pageSize)
+        {
+            int index = pageNumber == null ? 1 : (int)pageNumber;
+            int size = pageSize == null ? 9 : (int)pageSize;
+            var foods = await _foodService.GetFooodsAsync(cateId, search, index, size);
+            ViewBag.foods = foods;
+            ViewBag.Search = search;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = size;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)foods.TotalCount / size);
+            return View("~/Views/Foods/GetFoodAll.cshtml");
+        }
 
         [HttpGet("get-food-morning")]
         public async Task<IActionResult> GetFoodMorning(int? cateId = 1, int pageNumber = 1, int pageSize = 3)
