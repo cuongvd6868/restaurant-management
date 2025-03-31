@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using RestaurantManagement.DTOs;
+using RestaurantManagement.Hubs;
 using RestaurantManagement.Models;
 using RestaurantManagement.Repositories;
 using System.Security.Claims;
@@ -17,13 +19,18 @@ namespace RestaurantManagement.Controllers
         private IFoodOderDetailRepository _foodOderDetailRepository;
         private IFoodRepository _foodRepository;
         private ICartItemRepository _cartItemRepository;
+        
 
-        public OrdersController(IFoodOderRepository foodOderRepository, IFoodOderDetailRepository foodOderDetailRepository, IFoodRepository foodRepository, ICartItemRepository cartItemRepository)
+        public OrdersController(IFoodOderRepository foodOderRepository,
+            IFoodOderDetailRepository foodOderDetailRepository,
+            IFoodRepository foodRepository,
+            ICartItemRepository cartItemRepository)
         {
             _foodOderRepository = foodOderRepository;
             _foodOderDetailRepository = foodOderDetailRepository;
             _foodRepository = foodRepository;
             _cartItemRepository = cartItemRepository;
+            
         }
 
         [HttpPost]
@@ -43,6 +50,7 @@ namespace RestaurantManagement.Controllers
             }
             await _foodOderDetailRepository.AddList(details);
             await _cartItemRepository.RemoveRange(cartItems);
+           
             return Ok();
         }
         private int? GetUserId()
@@ -78,8 +86,8 @@ namespace RestaurantManagement.Controllers
         [Route("ChangeOrderStatus")]
         public async Task<IActionResult> ChangeOrderStatus(ChangeOrderStatusRequest request)
         {
-            var userId = GetUserId();
-            if (userId == null) return Unauthorized("User is not logged in");
+            //var userId = GetUserId();
+            //if (userId == null) return Unauthorized("User is not logged in");
 
             var Item = await _foodOderRepository.GetByIdAsync(request.OrderId);
             if (Item == null) return NotFound("This orderId not found");

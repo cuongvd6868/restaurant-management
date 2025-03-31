@@ -15,7 +15,11 @@ namespace RestaurantManagement.Repositories.Impl
 
         public async Task<List<FoodOrder>> GetListAlll()
         {
-            return await _context.FoodOrders.Include(x => x.Customer).Include(x => x.PaymentMethod).ToListAsync();
+            return await _context.FoodOrders
+                .Include(x => x.Customer)
+                .Include(x => x.PaymentMethod)
+                .OrderByDescending(x => x.OrderID)
+                .ToListAsync();
         }
     }
 }

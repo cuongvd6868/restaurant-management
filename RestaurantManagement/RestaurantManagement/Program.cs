@@ -12,8 +12,11 @@ using RestaurantManagement.Services.Impl;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using VNPAY.NET;
+using RestaurantManagement.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSignalR();
 
 // Cấu hình Identity
 builder.Services.AddIdentity<Customer, Role>()
@@ -130,5 +133,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<OrderHub>("/orderHub");
 
 app.Run();

@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "AdminLayout";
+}
+
+@model IEnumerable<RestaurantManagement.Models.FoodOrder>
+
+<div class="container">
+    <h2>Food Orders</h2>
+    <table class="table">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer Name</th>
+            <th>Order Date</th>
+            <th>Order Status</th>
+            <th>Payment Method</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.OrderID</td>
+                <td>@item.Customer?.UserName</td>
+                <td>@item.OrderDate</td>
+                <td id="@item.OrderID">@item.Status</td>
+                <td>@item.PaymentMethod?.PaymentMethodName</td>
+                <td>
+                    @if (@item.Status == "Pending")
+                    {
+                        <a class="btn btn-outline-primary" onclick="acceptOrder(this)" data-order-id="@item.OrderID" data-user-id="@item.UserID">Accept</a>
+                    }
+                    @if (@item.Status == "Processing")
+                    {
+                        <a class="btn btn-outline-danger">Cancel</a>
+                    }
+                </td>
+            </tr>
+        }
+    </table>

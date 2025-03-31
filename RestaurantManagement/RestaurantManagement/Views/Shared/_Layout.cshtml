@@ -7,6 +7,8 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <link rel="stylesheet" href="~/RestaurantManagement.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -52,9 +54,9 @@
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <p>Welcome, @User.Claims.FirstOrDefault(c => c.Type == "FirstName")?.Value</p>
                     <div>
-                        <form action="/Auth/Logout" method="post">
-                            <button type="submit" class="btn">Logout</button>
-                        </form>
+                      
+                            <button type="submit" onclick="logout()" class="btn">Logout</button>
+                       
                     </div>
                 </div>
 
@@ -72,6 +74,12 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/hub.js" asp-append-version="true"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
