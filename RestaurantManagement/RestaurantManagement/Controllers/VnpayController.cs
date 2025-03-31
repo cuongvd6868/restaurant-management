@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using RestaurantManagement.Hubs;
 using RestaurantManagement.Models;
 using RestaurantManagement.Repositories;
 using VNPAY.NET;
@@ -20,7 +22,13 @@ namespace RestaurantManagement.Controllers
         private IFoodOderDetailRepository _foodOderDetailRepository;
         private IFoodRepository _foodRepository;
         private ICartItemRepository _cartItemRepository;
-        public VnpayController(IConfiguration configuration , IVnpay vnpay, IFoodOderRepository foodOderRepository, IFoodOderDetailRepository foodOderDetailRepository, IFoodRepository foodRepository, ICartItemRepository cartItemRepository)
+        private readonly IHubContext<OrderHub> _hubContext;
+        public VnpayController(IConfiguration configuration , 
+            IVnpay vnpay, IFoodOderRepository foodOderRepository, 
+            IFoodOderDetailRepository foodOderDetailRepository, 
+            IFoodRepository foodRepository, 
+            ICartItemRepository cartItemRepository,
+       IHubContext<OrderHub> hubContext)
         {
             _vnpay = vnpay;
             _configuration = configuration;
@@ -28,6 +36,7 @@ namespace RestaurantManagement.Controllers
             _foodOderDetailRepository = foodOderDetailRepository;
             _foodRepository = foodRepository;
             _cartItemRepository = cartItemRepository;
+            _hubContext = hubContext;
             _vnpay.Initialize(_configuration["Vnpay:TmnCode"], _configuration["Vnpay:HashSecret"], _configuration["Vnpay:BaseUrl"], _configuration["Vnpay:ReturnUrl"]);
         }
 
@@ -123,6 +132,9 @@ namespace RestaurantManagement.Controllers
 
                         await _foodOderDetailRepository.AddList(details);
                         await _cartItemRepository.RemoveRange(cartItems);
+
+                        string message = "New order has been created";
+                        await _hubContext.Clients.Group("Staff").SendAsync("NewOrder", message);
 
                         return RedirectToAction("ResultPayment", "Home", new { message = "Thanh toán thành công!" });
                     }

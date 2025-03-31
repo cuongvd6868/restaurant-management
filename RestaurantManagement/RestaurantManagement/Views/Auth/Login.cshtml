@@ -82,7 +82,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -123,6 +123,8 @@
                 window.location.href = "/";
             } else if (data.role === "Admin") {
                 window.location.href = "/Admin";
+            } else if (data.role === "Staff") {
+                window.location.href = "/Staff";
             }
         } catch (error) {
             errorMessage.text(error.message).show();
