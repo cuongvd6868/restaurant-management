@@ -7,7 +7,9 @@
 <div class="profile-container">
     <!-- Header với background gradient -->
     <div class="profile-header">
-        <div class="cover-photo"></div>
+        <div class="cover-photo">
+            @* <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Alternate Text" height="180px; width: 1500px;"/> *@
+        </div>
         <div class="profile-info-header">
             <div class="avatar-container">
                 <img src="@(Model.Avatar ?? "/images/default-avatar.png")"
@@ -107,9 +109,12 @@
             <div class="col-lg-4">
                 <div class="card profile-actions-card">
                     <div class="card-body">
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block action-btn">
+                        <a asp-action="Profile" asp-controller="Home" class="btn btn-primary btn-block action-btn">
                             <i class="fas fa-edit"></i> Profile
                         </a>
+                        @* <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block action-btn"> *@
+                        @*     <i class="fas fa-edit"></i> Profile *@
+                        @* </a> *@
                         <button class="btn btn-outline-secondary btn-block action-btn">
                             <i class="fas fa-bell"></i> Message
                         </button>
